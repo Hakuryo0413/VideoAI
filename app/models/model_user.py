@@ -1,0 +1,13 @@
+from sqlalchemy import Column, String, Boolean, DateTime, Integer
+
+from app.models.model_base import BareBaseModel
+
+
+class User(BareBaseModel):
+    user_id = Column(Integer, primary_key=True, autoincrement=True)
+    full_name = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String(255))
+    is_active = Column(Boolean, default=True)
+    role = Column(String, default='guest')
+    last_login = Column(DateTime)
