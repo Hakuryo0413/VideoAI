@@ -1,21 +1,15 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
+import { NewsInterface } from "@src/types/NewsInterface";
+import apiConfig from "@src/utils/apiConfig";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const columns: TableProps<DataType>["columns"] = [
+const columns: TableProps<NewsInterface>["columns"] = [
   {
     title: "ID",
     dataIndex: "news_id",
     key: "news_id",
-    render: (text) => <a>{text}</a>,
+    render: (text, record) => <a href={`news/${record.news_id}`}>{text}</a>,
   },
   {
     title: "Title",
@@ -26,6 +20,7 @@ const columns: TableProps<DataType>["columns"] = [
     title: "Source_URL",
     dataIndex: "source_url",
     key: "source_url",
+    render: (text) => <a>{text}</a>,
   },
   {
     title: "Category",
@@ -57,39 +52,23 @@ const columns: TableProps<DataType>["columns"] = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Edit</a>
+        <a href={`/edit/${record.news_id}`}>Edit</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
-
-const NewsTab: React.FC = () => (
-  <Table<DataType> columns={columns} dataSource={data} />
-);
+const NewsTab: React.FC = () => {
+  const [dataNews, setDataNews] = useState<NewsInterface[]>([]);
+  useEffect(() => {
+    const fetchNews = async () => {
+      const response = await fetch(apiConfig.allNews);
+      const data = await response.json();
+      setDataNews(data.data);
+    };
+    fetchNews();
+  }, []);
+  return <Table<NewsInterface> columns={columns} dataSource={dataNews} />;
+};
 
 export default NewsTab;

@@ -11,7 +11,7 @@ interface ScriptTabProps {
   news_id: string;
 }
 
-const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
+const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
   const [script, setScript] = useState("");
   const [newsInfo, setNewsInfo] = useState<NewsInterface | null>(null);
   const [newsTitle, setNewsTitle] = useState("");
@@ -131,11 +131,11 @@ const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
 
       <div className="flex justify-center">
         <Button type="primary" onClick={submitUpdateNews} size="large">
-          Update News
+          Generate Video
         </Button>
       </div>
     </div>
   );
 };
 
-export default ScriptTab;
+export default NewsDetail;

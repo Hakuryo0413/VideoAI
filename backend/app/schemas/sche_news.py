@@ -27,7 +27,6 @@ class NewsCreateRequest(NewsBase):
     category: str
 
 class NewsUpdateRequest(BaseModel):
-    news_id: str
     news_title: Optional[str]
     summary: Optional[str]
     source_url: Optional[str]

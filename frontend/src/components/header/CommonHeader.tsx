@@ -27,7 +27,7 @@ function CommonHeader() {
           <div className="lg:mx-2 mx-auto px-4 md:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <a
-                href="/auction-list"
+                href="/edit/1"
                 className="text-black flex text-bold text-4xl font-logo"
               >
                 VideoAI
@@ -65,40 +65,9 @@ function CommonHeader() {
                     Log in
                   </a>
                 </Disclosure.Button>
-                <div className="flex lg:hidden">
-                  <Disclosure.Button className="flex float-right items-center rounded-lg p-2 text-black hover:bg-white hover:bg-opacity-30 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                    ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                    )}
-                  </Disclosure.Button>
-                </div>
               </div>
             </div>
           </div>
-
-          {/* Navigation của trang web trên điện thoại. Khi lớn hơn kích thước điện thoại thì nó sẽ không xuất hiện. */}
-          {/* <Disclosure.Panel className="lg:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    "bg-white bg-opacity-20 text-textColor",
-                    "hover:text-currentText",
-                    "block rounded-lg px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>

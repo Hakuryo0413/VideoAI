@@ -1,90 +1,74 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
+import apiConfig from "@src/utils/apiConfig";
+import { HistoryInterface } from "@src/types/HistoryInterface";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const columns: TableProps<DataType>["columns"] = [
+const columns: TableProps<HistoryInterface>["columns"] = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
+    title: "ID",
+    dataIndex: "news_id",
+    key: "news_id",
     render: (text) => <a>{text}</a>,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Title",
+    dataIndex: "news_title",
+    key: "news_title",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Source_URL",
+    dataIndex: "source_url",
+    key: "source_url",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
   },
+  // {
+  //   title: "Tags",
+  //   key: "tags",
+  //   dataIndex: "tags",
+  //   render: (_, { tags }) => (
+  //     <>
+  //       {tags.map((tag) => {
+  //         let color = tag.length > 5 ? "geekblue" : "green";
+  //         if (tag === "loser") {
+  //           color = "volcano";
+  //         }
+  //         return (
+  //           <Tag color={color} key={tag}>
+  //             {tag.toUpperCase()}
+  //           </Tag>
+  //         );
+  //       })}
+  //     </>
+  //   ),
+  // },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a>Edit</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
-
-const HistoryTab: React.FC = () => (
-  <Table<DataType> columns={columns} dataSource={data} />
-);
+const HistoryTab: React.FC = () => {
+  const [dataNews, setDataNews] = useState<HistoryInterface[]>([]);
+  useEffect(() => {
+    const fetchNews = async () => {
+      const response = await fetch(apiConfig.allNews);
+      const data = await response.json();
+      setDataNews(data.data);
+    };
+    fetchNews();
+  },[]);
+  return <Table<HistoryInterface> columns={columns} dataSource={dataNews} />;
+};
 
 export default HistoryTab;
