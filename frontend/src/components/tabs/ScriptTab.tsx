@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Select, Form } from "antd";
+import { Button, Input, Select, Form, ConfigProvider } from "antd";
 import { NewsInterface, UpdateNewsInterface } from "@src/types/NewsInterface";
 import { getNewsInfo } from "@src/features/news/NewsDetail";
 import { updateNewsFunc } from "@src/features/news/UpdateNews";
+import { CATEGORY } from "@src/types/common";
+import { LeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -12,6 +15,7 @@ interface ScriptTabProps {
 }
 
 const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
+  let navigate = useNavigate();
   const [script, setScript] = useState("");
   const [newsInfo, setNewsInfo] = useState<NewsInterface | null>(null);
   const [newsTitle, setNewsTitle] = useState("");
@@ -74,67 +78,86 @@ const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
     try {
       const response = await updateNewsFunc(news_id, updateNews);
       console.log("Updated news:", response);
-      window.location.replace("/");
+      navigate("/");
+      // window.location.replace("/");
     } catch (error) {
       console.error("Error updating news", error);
     }
   };
 
-  const categories = [
-    "Politics",
-    "Business",
-    "Technology",
-    "Sports",
-    "Entertainment",
-    "Health",
-    "Science",
-  ];
+  const categories = Object.values(CATEGORY);
 
   return (
-    <div className="space-y-6">
-      <Form layout="vertical">
-        <Form.Item label="News Title" className="mb-4">
-          <Input
-            placeholder="Enter news title"
-            value={newsTitle}
-            onChange={handleTitleChange}
-            allowClear
-          />
-        </Form.Item>
-
-        <Form.Item label="Category" className="mb-4">
-          <Select
-            placeholder="Select a category"
-            style={{ width: "100%" }}
-            value={category}
-            onChange={handleCategoryChange}
+    <ConfigProvider
+      theme={{
+        components: {
+          Form: {
+            labelColor: "white",
+          },
+          Button: {
+            colorPrimary: "black",
+          },
+        },
+      }}
+    >
+      <div className="space-y-6 px-40 ">
+        <div className="bg-[#B75A4A] m-4 p-4 rounded-2xl">
+          <Button
+            type="text"
+            className="!text-white"
+            onClick={() => navigate("/")}
           >
-            {categories.map((cat) => (
-              <Option key={cat} value={cat}>
-                {cat}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <LeftOutlined />
+            Back
+          </Button>
+          <p className="text-3xl text-center text-white font-medium ">
+            EDIT NEWS
+          </p>
+          <Form layout="vertical">
+            <Form.Item label="News Title" className="mb-4">
+              <Input
+                placeholder="Enter news title"
+                value={newsTitle}
+                onChange={handleTitleChange}
+                allowClear
+              />
+            </Form.Item>
 
-        <Form.Item label="Script" className="mb-4">
-          <TextArea
-            placeholder="Edit your script here"
-            rows={12}
-            showCount
-            allowClear
-            onChange={handleScriptChange}
-            value={script}
-          />
-        </Form.Item>
-      </Form>
+            <Form.Item label="Category" className="mb-4">
+              <Select
+                placeholder="Select a category"
+                style={{ width: "100%" }}
+                value={category}
+                onChange={handleCategoryChange}
+              >
+                {categories.map((cat) => (
+                  <Option key={cat} value={cat}>
+                    {cat}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
 
-      <div className="flex justify-center">
-        <Button type="primary" onClick={submitUpdateNews} size="large">
-          Update News
-        </Button>
+            <Form.Item label="Script" className="mb-4">
+              <TextArea
+                placeholder="Edit your script here"
+                rows={12}
+                showCount
+                allowClear
+                onChange={handleScriptChange}
+                value={script}
+              />
+            </Form.Item>
+          </Form>
+
+          <div className="flex justify-center">
+            <Button type="primary" onClick={submitUpdateNews} size="large">
+              Update News
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </ConfigProvider>
   );
 };
 

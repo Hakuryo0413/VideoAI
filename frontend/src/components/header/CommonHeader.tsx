@@ -1,5 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Logo from "@src/assets/logo";
 import React from "react";
 
 //************************************
@@ -14,12 +15,15 @@ import React from "react";
 //   { name: "Thông báo đấu giá", href: "/", current: false },
 // ];
 
-// Hàm tạo một chuỗi tên lớp dựa trên các đối số đầu vào.
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 function CommonHeader() {
+  const token = localStorage.getItem("token");
+
+  const logoutFunc = (token) => {
+    if (token) {
+      localStorage.removeItem("token");
+    }
+  };
+
   return (
     <Disclosure as="nav" className="bg-background z-50">
       {({ open }) => (
@@ -27,42 +31,27 @@ function CommonHeader() {
           <div className="lg:mx-2 mx-auto px-4 md:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <a
-                href="/edit/1"
+                href="/"
                 className="text-black flex text-bold text-4xl font-logo"
               >
-                VideoAI
+                <Logo />
               </a>
 
-              {/* Tương ứng với một đối tượng trong mảng navigation, tạo ra một bộ chuyển hướng có tên và đường dẫn đã được lưu. */}
-              {/* Navigation trên kích thước lớn hơn kích thước điện thoại (lgall).*/}
-              {/* <div className="flex-1 justify-center items-center hidden lg:flex">
-                <div className="flex space-x-4 ">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        "text-white hover:text-currentText",
-                        "rounded-lg px-3 py-2 text-base font-mediun"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </div> */}
-
               <div className="absolute right-0 flex lg:relative lg:block">
-                <Disclosure.Button className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <a href="/signup" className="font-bold">
-                    Register
-                  </a>
-                </Disclosure.Button>
+                {!token && (
+                  <Disclosure.Button className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <a href="/signup" className="font-bold">
+                      Register
+                    </a>
+                  </Disclosure.Button>
+                )}
                 {/* Nút đăng nhập --> Chuyển hướng sang trang đăng nhập tài khoản. */}
-                <Disclosure.Button className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-textColor focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button
+                  onClick={logoutFunc}
+                  className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                >
                   <a href="/login" className="font-bold">
-                    Log in
+                    {token ? "Log out" : "Log in"}
                   </a>
                 </Disclosure.Button>
               </div>

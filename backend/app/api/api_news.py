@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.helpers.paging import Page, PaginationParams, paginate
 from app.models.model_news import News
 from app.schemas.sche_base import DataResponse
-from app.schemas.sche_news import NewsItemResponse, NewsUpdateRequest
+from app.schemas.sche_news import NewsCreateRequest, NewsItemResponse, NewsUpdateRequest, NewsUpdateResponse
 from app.services.srv_news import NewsService
 from fastapi_sqlalchemy import db
 # from feature import parse_news_from_file
@@ -30,7 +30,7 @@ def get_news(params: PaginationParams = Depends()) -> Any:
         return HTTPException(status_code=400, detail=logger.error(e))
 
 @router.post("", response_model=DataResponse[NewsItemResponse])
-def create_news(news_data: NewsItemResponse, news_service: NewsService = Depends()) -> Any:
+def create_news(news_data: NewsCreateRequest, news_service: NewsService = Depends()) -> Any:
     """
     API Create News
     """
@@ -51,7 +51,7 @@ def detail_news(news_id: str, news_service: NewsService= Depends()) -> Any:
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))
 
-@router.put("/{news_id}", response_model=DataResponse[NewsItemResponse])
+@router.put("/{news_id}", response_model=DataResponse[NewsUpdateResponse])
 def update_news(news_id: str, news_data: NewsUpdateRequest, news_service: NewsService = Depends()) -> Any:
     """
     API Update News

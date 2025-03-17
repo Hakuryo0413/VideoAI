@@ -4,7 +4,7 @@ import HomeRouter from "./routes/HomeRouter";
 
 function App() {
   return (
-    <div className="font-priego text-sm md:text-md bg-background min-h-screen">
+    <div className="font-priego text-sm md:text-md bg-black min-h-screen">
       <Router>
         <Routes>
           <Route path="*" element={<HomeRouter />} />

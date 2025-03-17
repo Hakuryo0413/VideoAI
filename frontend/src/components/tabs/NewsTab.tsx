@@ -1,15 +1,20 @@
-import React, { use, useEffect, useState } from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { ConfigProvider, Space, Table } from "antd";
 import type { TableProps } from "antd";
 import { NewsInterface } from "@src/types/NewsInterface";
 import { getAllNews } from "@src/features/news/NewsDetail";
+import CustomTag from "../shared/CustomTag";
 
 const columns: TableProps<NewsInterface>["columns"] = [
   {
     title: "ID",
     dataIndex: "news_id",
     key: "news_id",
-    render: (text, record) => <a href={`news/${record.news_id}`}>{text}</a>,
+    render: (text, record) => (
+      <a href={`news/${record.news_id}`}>
+        {`${text.slice(0, 5)}...${text.slice(-5)}`}
+      </a>
+    ),
   },
   {
     title: "Title",
@@ -17,36 +22,16 @@ const columns: TableProps<NewsInterface>["columns"] = [
     key: "news_title",
   },
   {
-    title: "Source_URL",
-    dataIndex: "source_url",
-    key: "source_url",
-    render: (text) => <a>{text}</a>,
+    title: "Updated At",
+    dataIndex: "updated_at",
+    key: "updated_at",
   },
   {
     title: "Category",
     dataIndex: "category",
     key: "category",
+    render: (text) => <CustomTag category={text} />,
   },
-  // {
-  //   title: "Tags",
-  //   key: "tags",
-  //   dataIndex: "tags",
-  //   render: (_, { tags }) => (
-  //     <>
-  //       {tags.map((tag) => {
-  //         let color = tag.length > 5 ? "geekblue" : "green";
-  //         if (tag === "loser") {
-  //           color = "volcano";
-  //         }
-  //         return (
-  //           <Tag color={color} key={tag}>
-  //             {tag.toUpperCase()}
-  //           </Tag>
-  //         );
-  //       })}
-  //     </>
-  //   ),
-  // },
   {
     title: "Action",
     key: "action",
@@ -72,7 +57,20 @@ const NewsTab: React.FC = () => {
     };
     fetchNews();
   }, []);
-  return <Table<NewsInterface> columns={columns} dataSource={dataNews} />;
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            cellPaddingBlock: 8,
+          },
+        },
+      }}
+    >
+      <p className="text-xl my-2">Total: {dataNews.length} News</p>
+      <Table<NewsInterface> columns={columns} dataSource={dataNews} />
+    </ConfigProvider>
+  );
 };
 
 export default NewsTab;

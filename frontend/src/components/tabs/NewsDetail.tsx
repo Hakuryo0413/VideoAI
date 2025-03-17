@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Select, Form } from "antd";
-import { NewsInterface, UpdateNewsInterface } from "@src/types/NewsInterface";
+import { Button, Input, Select, Form, ConfigProvider } from "antd";
+import { NewsInterface } from "@src/types/NewsInterface";
 import { getNewsInfo } from "@src/features/news/NewsDetail";
 import { createVideoFunc } from "@src/features/video/CreateVideo";
 import { CreateVideoPayload } from "@src/types/VideoInterface";
 import configKeys from "@src/utils/config";
+import { CATEGORY } from "@src/types/common";
+import { LeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -14,6 +17,7 @@ interface ScriptTabProps {
 }
 
 const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
+  let navigate = useNavigate();
   const [newsInfo, setNewsInfo] = useState<NewsInterface | null>(null);
   const [videoInfo, setVideoInfo] = useState<CreateVideoPayload>({
     news_id: news_id,
@@ -76,58 +80,84 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
     }
   };
 
-  const categories = [
-    "Politics",
-    "Business",
-    "Technology",
-    "Sports",
-    "Entertainment",
-    "Health",
-    "Science",
-  ];
+  const categories = Object.values(CATEGORY);
 
   return (
-    <div className="space-y-6">
-      <Form layout="vertical">
-        <Form.Item label="News Title" className="mb-4">
-          <Input
-            placeholder="Enter news title"
-            value={newsInfo?.news_title}
-            allowClear
-          />
-        </Form.Item>
-
-        <Form.Item label="Category" className="mb-4">
-          <Select
-            placeholder="Select a category"
-            style={{ width: "100%" }}
-            value={newsInfo?.category}
+    <ConfigProvider
+      theme={{
+        components: {
+          Form: {
+            labelColor: "white",
+          },
+          Button: {
+            colorPrimary: "black",
+          },
+        },
+      }}
+    >
+      <div className="space-y-6 px-40">
+        <div className="bg-[#B75A4A] m-4 p-4 rounded-2xl">
+          <Button
+            type="text"
+            className="!text-white"
+            onClick={() => navigate("/")}
           >
-            {categories.map((cat) => (
-              <Option key={cat} value={cat}>
-                {cat}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <LeftOutlined />
+            Back
+          </Button>
 
-        <Form.Item label="Script" className="mb-4">
-          <TextArea
-            placeholder="Edit your script here"
-            rows={12}
-            showCount
-            allowClear
-            value={newsInfo?.summary}
-          />
-        </Form.Item>
-      </Form>
+          <p className="text-3xl text-center text-white font-medium ">
+            DETAIL NEWS
+          </p>
+          <Form layout="vertical">
+            <Form.Item label="News ID" className="mb-4">
+              <Input
+                placeholder="Enter news_id"
+                value={newsInfo?.news_id}
+                allowClear
+              />
+            </Form.Item>
+            <Form.Item label="News Title" className="mb-4">
+              <Input
+                placeholder="Enter news title"
+                value={newsInfo?.news_title}
+                allowClear
+              />
+            </Form.Item>
 
-      <div className="flex justify-center">
-        <Button type="primary" onClick={submitGenerateVideo} size="large">
-          Generate Video
-        </Button>
+            <Form.Item label="Category" className="mb-4">
+              <Select
+                placeholder="Select a category"
+                style={{ width: "100%" }}
+                value={newsInfo?.category}
+              >
+                {categories.map((cat) => (
+                  <Option key={cat} value={cat}>
+                    {cat}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item label="Script" className="mb-4">
+              <TextArea
+                placeholder="Edit your script here"
+                rows={12}
+                showCount
+                allowClear
+                value={newsInfo?.summary}
+              />
+            </Form.Item>
+          </Form>
+
+          <div className="flex justify-center">
+            <Button type="primary" onClick={submitGenerateVideo} size="large">
+              Generate Video
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </ConfigProvider>
   );
 };
 

@@ -1,5 +1,5 @@
-import React, { use, useEffect, useState } from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { Space, Table } from "antd";
 import type { TableProps } from "antd";
 import apiConfig from "@src/utils/apiConfig";
 import { HistoryInterface } from "@src/types/HistoryInterface";
@@ -67,7 +67,7 @@ const HistoryTab: React.FC = () => {
       setDataNews(data.data);
     };
     fetchNews();
-  },[]);
+  }, []);
   return <Table<HistoryInterface> columns={columns} dataSource={dataNews} />;
 };
 
