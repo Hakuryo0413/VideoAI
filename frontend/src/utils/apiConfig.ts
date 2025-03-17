@@ -19,6 +19,8 @@ const apiConfig = {
   createVideo: `${configKeys.API_URL}video`,
   updateVideo: `${configKeys.API_URL}video`,
   videoByNewsId: `${configKeys.API_URL}video/news`,
+
+  allPresenter: `${configKeys.API_URL}presenter`,
 };
 
 export default apiConfig;

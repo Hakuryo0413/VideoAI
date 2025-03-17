@@ -32,7 +32,7 @@ export interface Crop {
 }
 
 export interface CreateVideoPayload {
-  news_id: string;
+  // news_id: string;
   name: string;
   // result_url: string;
   presenter_id: string;

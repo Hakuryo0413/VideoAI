@@ -20,7 +20,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
   let navigate = useNavigate();
   const [newsInfo, setNewsInfo] = useState<NewsInterface | null>(null);
   const [videoInfo, setVideoInfo] = useState<CreateVideoPayload>({
-    news_id: news_id,
+    // news_id: news_id,
     name: newsInfo?.news_title,
     presenter_id: "amy-Aq6OmGZnMt",
     webhook: configKeys.WEBHOOK,
@@ -100,7 +100,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
           <Button
             type="text"
             className="!text-white"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/table")}
           >
             <LeftOutlined />
             Back

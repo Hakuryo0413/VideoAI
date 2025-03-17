@@ -105,7 +105,7 @@ const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
           <Button
             type="text"
             className="!text-white"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/table")}
           >
             <LeftOutlined />
             Back

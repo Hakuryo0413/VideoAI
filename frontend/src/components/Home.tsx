@@ -3,6 +3,7 @@ import { ConfigProvider, Tabs } from "antd";
 import VideoTab from "./tabs/VideoTab";
 import HistoryTab from "./tabs/HistoryTab";
 import NewsTab from "./tabs/NewsTab";
+import PresenterTab from "./tabs/PresenterTab";
 
 const Home: React.FC = () => (
   <ConfigProvider
@@ -47,6 +48,15 @@ const Home: React.FC = () => (
             children: (
               <>
                 <HistoryTab />
+              </>
+            ),
+          },
+          {
+            label: "Presenter",
+            key: "4",
+            children: (
+              <>
+                <PresenterTab />
               </>
             ),
           },

@@ -14,18 +14,18 @@ const columns: TableProps<VideoInterface>["columns"] = [
   },
   {
     title: "Title",
-    dataIndex: "news_title",
-    key: "news_title",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "Source_URL",
-    dataIndex: "source_url",
-    key: "source_url",
+    dataIndex: "result_url",
+    key: "result_url",
   },
   {
-    title: "Category",
-    dataIndex: "category",
-    key: "category",
+    title: "Presenter ID",
+    dataIndex: "presenter_id",
+    key: "presenter_id",
   },
   // {
   //   title: "Tags",
