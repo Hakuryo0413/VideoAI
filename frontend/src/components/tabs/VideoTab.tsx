@@ -3,7 +3,7 @@ import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import apiConfig from "@src/utils/apiConfig";
 import { VideoInterface } from "@src/types/VideoInterface";
-
+import { getAllVideo } from "@src/features/video/VideoDetail";
 
 const columns: TableProps<VideoInterface>["columns"] = [
   {
@@ -60,16 +60,19 @@ const columns: TableProps<VideoInterface>["columns"] = [
 ];
 
 const VideoTab: React.FC = () => {
-  const [dataNews, setDataNews] = useState<VideoInterface[]>([]);
+  const [dataVideo, setDataVideo] = useState<VideoInterface[]>([]);
   useEffect(() => {
-    const fetchNews = async () => {
-      const response = await fetch(apiConfig.allNews);
-      const data = await response.json();
-      setDataNews(data.data);
+    const fetchVideo = async () => {
+      try {
+        const data = await getAllVideo();
+        setDataVideo(data);
+      } catch (error) {
+        console.error("Error fetching all news", error);
+      }
     };
-    fetchNews();
-  },[]);
-  return <Table<VideoInterface> columns={columns} dataSource={dataNews} />;
+    fetchVideo();
+  }, []);
+  return <Table<VideoInterface> columns={columns} dataSource={dataVideo} />;
 };
 
 export default VideoTab;

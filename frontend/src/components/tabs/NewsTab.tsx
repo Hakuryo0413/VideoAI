@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { NewsInterface } from "@src/types/NewsInterface";
-import apiConfig from "@src/utils/apiConfig";
+import { getAllNews } from "@src/features/news/NewsDetail";
 
 const columns: TableProps<NewsInterface>["columns"] = [
   {
@@ -61,10 +61,14 @@ const columns: TableProps<NewsInterface>["columns"] = [
 const NewsTab: React.FC = () => {
   const [dataNews, setDataNews] = useState<NewsInterface[]>([]);
   useEffect(() => {
+    console.log("fetching news");
     const fetchNews = async () => {
-      const response = await fetch(apiConfig.allNews);
-      const data = await response.json();
-      setDataNews(data.data);
+      try {
+        const data = await getAllNews();
+        setDataNews(data);
+      } catch (error) {
+        console.error("Error fetching all news", error);
+      }
     };
     fetchNews();
   }, []);

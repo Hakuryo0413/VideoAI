@@ -45,25 +45,39 @@ def summarize(content: str) -> str | None:
 
 # Tạo prompt tóm tắt từ nội dung file
 prompt = f"""
-Please summarize each of the following articles in 200 words each. Skip unnecessary introductions. Format the output as follows:
-**Article 1 Summary:**
-[Summary]
+Please summarize each of the following articles in 200 words each. Skip unnecessary introductions. Format the output as an HTML file where:
+- The title is wrapped in an <h1> tag.
+- The content is wrapped in an <h2> tag.
+- The category is wrapped in an <h3> tag. Choose the category from the following list:
+  - "Politics"
+  - "Business"
+  - "Technology"
+  - "Sports"
+  - "Entertainment"
+  - "Health"
+  - "Science"
+- Each article is separated by a <br> tag.
 
-**Article 2 Summary:**
-[Summary]
+Example output format:
+<h1>[Title]</h1>
+<h2>[Content]</h2>
+<h3>[Category]</h3>
+<br>
+
+<h1>[Title]</h1>
+<h2>[Content]</h2>
+<h3>[Category]</h3>
+<br>
 
 {file_content}
 """
 
-print(prompt)
-
-
 # Gọi API để tóm tắt nội dung
 summary_result = summarize(prompt)
 
-# Lưu kết quả tóm tắt vào file summary.txt
-summary_output = os.path.join(current_dir, "summary.txt")
-with open(summary_output, "w", encoding="utf-8") as f:
-    f.write(summary_result)
+# Lưu kết quả tóm tắt vào file output.html
+output_html_path = os.path.join(current_dir, "output.html")
+with open(output_html_path, "w", encoding="utf-8") as file:
+    file.write(summary_result)
 
-print(f"Kết quả đã được lưu vào: {summary_output}")
+print(f"Kết quả đã được lưu vào: {output_html_path}")

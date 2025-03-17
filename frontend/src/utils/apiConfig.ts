@@ -4,7 +4,7 @@ const apiConfig = {
   userLogin: `${configKeys.API_URL}login/`,
   userRegister: `${configKeys.API_URL}register/`,
 
-  allNews: `${configKeys.API_URL}news`,
+  allNews: `${configKeys.API_URL}news?page_size=100&page=1&sort_by=id&order=desc`,
   newsById: `${configKeys.API_URL}news`,
   createNews: `${configKeys.API_URL}news`,
   updateNews: `${configKeys.API_URL}news`,

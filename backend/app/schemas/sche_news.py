@@ -16,8 +16,8 @@ class NewsItemResponse(NewsBase):
     news_id: str
     news_title: str
     summary: str
-    source_url: str
-    category: str
+    source_url: Optional[str]
+    category: Optional[str]
 
 class NewsCreateRequest(NewsBase):
     news_id: str

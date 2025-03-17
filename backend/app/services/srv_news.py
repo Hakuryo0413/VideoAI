@@ -1,6 +1,9 @@
+from typing import List
+import uuid
 from app.models import News
-from app.schemas.sche_news import NewsCreateRequest, NewsUpdateRequest
+from app.schemas.sche_news import NewsCreateRequest, NewsItemResponse, NewsUpdateRequest
 from fastapi_sqlalchemy import db
+from bs4 import BeautifulSoup  # Sử dụng thư viện BeautifulSoup để phân tích HTML
 
 
 class NewsService(object):
@@ -45,4 +48,30 @@ class NewsService(object):
         db.session.commit()
         return news
     
-    
+    @staticmethod
+    def parse_news_from_file(file_path: str) -> List[NewsItemResponse]:
+        news_list = []
+
+    # Đọc nội dung file HTML
+        with open(file_path, "r", encoding="utf-8") as file:
+            html_content = file.read()
+        file = html_content
+    # Phân tích nội dung HTML
+        soup = BeautifulSoup(html_content, "html.parser")
+    # Tìm tất cả các thẻ <h1> và <h2>
+        h1_tags = soup.find_all("h1")
+        h2_tags = soup.find_all("h2")
+        h3_tags = soup.find_all("h3")
+    # Kiểm tra số lượng thẻ <h1> và <h2> phải bằng nhau
+        if len(h1_tags) != len(h2_tags):
+            raise ValueError("Số lượng thẻ <h1> và <h2> không khớp.")
+
+    # Trích xuất tiêu đề và nội dung
+        for h1, h2, h3 in zip(h1_tags, h2_tags, h3_tags):
+            title = h1.get_text(strip=True)  # Lấy nội dung của thẻ <h1>
+            content = h2.get_text(strip=True)  # Lấy nội dung của thẻ <h2>
+            category = h3.get_text(strip=True)
+            news_id = str(uuid.uuid4())  # Tạo một UUID ngẫu nhiên
+            news_item = NewsItemResponse(news_id=news_id,news_title=title, summary=content, category=category)
+            news_list.append(news_item)
+        return news_list

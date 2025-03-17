@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Button, Input, Select, Form } from "antd";
 import { NewsInterface, UpdateNewsInterface } from "@src/types/NewsInterface";
 import { getNewsInfo } from "@src/features/news/NewsDetail";
-import { updateNewsFunc } from "@src/features/news/UpdateNews";
+import { createVideoFunc } from "@src/features/video/CreateVideo";
+import { CreateVideoPayload } from "@src/types/VideoInterface";
+import configKeys from "@src/utils/config";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -12,28 +14,28 @@ interface ScriptTabProps {
 }
 
 const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
-  const [script, setScript] = useState("");
   const [newsInfo, setNewsInfo] = useState<NewsInterface | null>(null);
-  const [newsTitle, setNewsTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [updateNews, setUpdateNews] = useState<UpdateNewsInterface>({
-    summary: script,
-    news_title: newsTitle,
-    category: category,
-    updated_at: new Date(),
+  const [videoInfo, setVideoInfo] = useState<CreateVideoPayload>({
+    news_id: news_id,
+    name: newsInfo?.news_title,
+    presenter_id: "amy-Aq6OmGZnMt",
+    webhook: configKeys.WEBHOOK,
+    script: {
+      type: "text",
+      subtitles: false,
+      provider: {
+        type: "microsoft",
+        voice_id: "Sara",
+      },
+      input: newsInfo?.summary,
+      ssml: false,
+    },
+    presenter_config: {
+      crop: {
+        type: "wide",
+      },
+    },
   });
-
-  const handleScriptChange = (e) => {
-    setScript(e.target.value);
-  };
-
-  const handleTitleChange = (e) => {
-    setNewsTitle(e.target.value);
-  };
-
-  const handleCategoryChange = (value) => {
-    setCategory(value);
-  };
 
   // Fetch news info when news_id changes
   useEffect(() => {
@@ -46,35 +48,29 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
         console.error("Error fetching news info", error);
       }
     };
-
     fetchNewsInfo();
   }, [news_id]);
-
-  // Update updateNews state when any of the input fields change
-  useEffect(() => {
-    setUpdateNews({
-      ...updateNews,
-      summary: script,
-      news_title: newsTitle,
-      category: category,
-    });
-  }, [script, newsTitle, category]);
 
   // Initialize form values when newsInfo is fetched
   useEffect(() => {
     if (newsInfo) {
-      console.log("newsInfo updated:", newsInfo);
-      setScript(newsInfo.summary || "");
-      setNewsTitle(newsInfo.news_title || "");
-      setCategory(newsInfo.category || "");
+      setVideoInfo({
+        ...videoInfo,
+        name: newsInfo?.news_title,
+        script: {
+          ...videoInfo?.script,
+          input: newsInfo?.summary,
+        },
+      });
     }
   }, [newsInfo]);
 
-  const submitUpdateNews = async () => {
+  const submitGenerateVideo = async () => {
     try {
-      const response = await updateNewsFunc(news_id, updateNews);
-      console.log("Updated news:", response);
-      window.location.replace("/");
+      console.log("Video info:", videoInfo);
+      const response = await createVideoFunc(videoInfo);
+      console.log("Create video:", response);
+      // window.location.replace("/");
     } catch (error) {
       console.error("Error updating news", error);
     }
@@ -96,8 +92,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
         <Form.Item label="News Title" className="mb-4">
           <Input
             placeholder="Enter news title"
-            value={newsTitle}
-            onChange={handleTitleChange}
+            value={newsInfo?.news_title}
             allowClear
           />
         </Form.Item>
@@ -106,8 +101,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
           <Select
             placeholder="Select a category"
             style={{ width: "100%" }}
-            value={category}
-            onChange={handleCategoryChange}
+            value={newsInfo?.category}
           >
             {categories.map((cat) => (
               <Option key={cat} value={cat}>
@@ -123,14 +117,13 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
             rows={12}
             showCount
             allowClear
-            onChange={handleScriptChange}
-            value={script}
+            value={newsInfo?.summary}
           />
         </Form.Item>
       </Form>
 
       <div className="flex justify-center">
-        <Button type="primary" onClick={submitUpdateNews} size="large">
+        <Button type="primary" onClick={submitGenerateVideo} size="large">
           Generate Video
         </Button>
       </div>
