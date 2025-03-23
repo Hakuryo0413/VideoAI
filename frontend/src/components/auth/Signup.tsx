@@ -17,6 +17,7 @@ import LinkedIn from "@src/assets/linkedln";
 import Facebook from "@src/assets/facebookLogo";
 import { UserRegisterPayload } from "@src/types/UserInterface";
 import { registerFunc } from "@src/features/auth/Register";
+import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -129,10 +130,10 @@ const Signup: React.FC = () => {
 
             <Form.Item style={{ marginTop: "20px", textAlign: "center" }}>
               <span className="text-white">
-                Already have an account?
-                <a href="/login" className="!text-orange-400">
+                Already have an account?{" "}
+                <Link to="/login" className="!text-orange-400">
                   Log in now!
-                </a>
+                </Link>
               </span>
             </Form.Item>
           </Form>

@@ -78,7 +78,7 @@ const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
     try {
       const response = await updateNewsFunc(news_id, updateNews);
       console.log("Updated news:", response);
-      navigate("/");
+      navigate("/table");
       // window.location.replace("/");
     } catch (error) {
       console.error("Error updating news", error);

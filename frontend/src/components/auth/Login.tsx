@@ -16,6 +16,7 @@ import Facebook from "@src/assets/facebookLogo";
 import Google from "@src/assets/googleLogo";
 import { UserLoginPayload } from "@src/types/UserInterface";
 import { loginFunc } from "@src/features/auth/Login";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const login = async (payload: UserLoginPayload) => {
@@ -123,9 +124,9 @@ const Login: React.FC = () => {
             <Form.Item style={{ marginTop: "20px", textAlign: "center" }}>
               <span className="text-white">
                 Don't have an account?{" "}
-                <a href="/signup" className="!text-orange-400">
+                <Link to={"/signup"} className="!text-orange-400">
                   Register now!
-                </a>
+                </Link>
               </span>
             </Form.Item>
           </Form>

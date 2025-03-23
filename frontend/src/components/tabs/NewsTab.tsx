@@ -1,25 +1,13 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ConfigProvider, Space, Table } from "antd";
 import type { TableProps } from "antd";
 import { NewsInterface } from "@src/types/NewsInterface";
 import { getAllNews } from "@src/features/news/NewsDetail";
 import CustomTag from "../shared/CustomTag";
-
-const dateFormater = (date: Date) => {
-  let dateString =
-    date.getUTCFullYear() +
-    "/" +
-    ("0" + (date.getUTCMonth() + 1)).slice(-2) +
-    "/" +
-    ("0" + date.getUTCDate()).slice(-2) +
-    " " +
-    ("0" + date.getUTCHours()).slice(-2) +
-    ":" +
-    ("0" + date.getUTCMinutes()).slice(-2) +
-    ":" +
-    ("0" + date.getUTCSeconds()).slice(-2);
-  return dateString;
-};
+import { dateFormater } from "@src/utils/common";
+import CustomProvider from "../shared/CustomProvider";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const columns: TableProps<NewsInterface>["columns"] = [
   {
@@ -27,37 +15,46 @@ const columns: TableProps<NewsInterface>["columns"] = [
     dataIndex: "news_id",
     key: "news_id",
     render: (text, record) => (
-      <a href={`news/${record.news_id}`}>
+      <Link to={`/news/${record.news_id}`}>
         {`${text.slice(0, 5)}...${text.slice(-5)}`}
-      </a>
+      </Link>
     ),
+    width: "20px",
   },
   {
     title: "Title",
     dataIndex: "news_title",
     key: "news_title",
+    width: "200px",
   },
   {
     title: "Updated At",
     dataIndex: "updated_at",
     key: "updated_at",
     render: (text, record) => <p>{dateFormater(record.updated_at)}</p>,
+    width: "40px",
   },
   {
     title: "Category",
     dataIndex: "category",
     key: "category",
     render: (text) => <CustomTag category={text} />,
+    width: "20px",
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a href={`/edit/${record.news_id}`}>Edit</a>
-        <a>Delete</a>
+        <Link to={`/edit/${record.news_id}`}>
+          <EditOutlined />
+        </Link>
+        <Link to={""}>
+          <DeleteOutlined />
+        </Link>
       </Space>
     ),
+    width: "20px",
   },
 ];
 const NewsTab: React.FC = () => {
@@ -78,22 +75,11 @@ const NewsTab: React.FC = () => {
     fetchNews();
   }, []);
 
-  useEffect(() => {
-    let tmp = new Date();
-  }, [dataNews]);
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Table: {
-            cellPaddingBlock: 8,
-          },
-        },
-      }}
-    >
+    <CustomProvider>
       <p className="text-xl my-2">Total: {dataNews.length} News</p>
       <Table<NewsInterface> columns={columns} dataSource={dataNews} />
-    </ConfigProvider>
+    </CustomProvider>
   );
 };
 

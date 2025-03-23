@@ -5,6 +5,7 @@ import { NewsInterface } from "@src/types/NewsInterface";
 import CustomTag from "../shared/CustomTag";
 import { getAllPresenters } from "@src/features/presenter/PresenterDetail";
 import { PresenterInterface } from "@src/types/PresenterInterface";
+import CustomProvider from "../shared/CustomProvider";
 
 const columns: TableProps<PresenterInterface>["columns"] = [
   {
@@ -69,21 +70,13 @@ const PresenterTab: React.FC = () => {
     fetchNews();
   }, []);
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Table: {
-            cellPaddingBlock: 8,
-          },
-        },
-      }}
-    >
-      <p className="text-xl my-2">Total: {dataPresenters.length} News</p>
+    <CustomProvider>
+      <p className="text-xl my-2">Total: {dataPresenters.length} Presenters</p>
       <Table<PresenterInterface>
         columns={columns}
         dataSource={dataPresenters}
       />
-    </ConfigProvider>
+    </CustomProvider>
   );
 };
 

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ConfigProvider, Table } from "antd";
+import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { VideoInterface } from "@src/types/VideoInterface";
 import { getAllVideo } from "@src/features/video/VideoDetail";
+import { dateFormater } from "@src/utils/common";
+import CustomProvider from "../shared/CustomProvider";
+import { Link } from "react-router-dom";
 
 const columns: TableProps<VideoInterface>["columns"] = [
   {
@@ -10,20 +13,37 @@ const columns: TableProps<VideoInterface>["columns"] = [
     dataIndex: "id",
     key: "id",
     render: (text, record) => (
-      <a href={`video/${record.id}`}>
+      <Link to={`video/${record.id}`}>
         {`${text.slice(0, 5)}...${text.slice(-5)}`}
-      </a>
+      </Link>
     ),
   },
   {
     title: "Title",
     dataIndex: "name",
     key: "name",
+    render: (text) => (
+      <div style={{ wordWrap: "break-word", wordBreak: "break-word" }}>
+        {text}
+      </div>
+    ),
   },
   {
-    title: "Source_URL",
-    dataIndex: "result_url",
-    key: "result_url",
+    title: "Created At",
+    dataIndex: "created_at",
+    key: "created_at",
+    render: (text) => <p>{dateFormater(text)}</p>,
+    width: "40px",
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    render: (text) => (
+      <Tag color={text === "done" ? "green" : "red"}>
+        <p className="uppercase">{text}</p>
+      </Tag>
+    ),
   },
   {
     title: "Presenter ID",
@@ -38,6 +58,9 @@ const VideoTab: React.FC = () => {
     const fetchVideo = async () => {
       try {
         const data = await getAllVideo();
+        data.forEach((video: VideoInterface) => {
+          video.created_at = new Date(video.created_at);
+        });
         setDataVideo(data);
       } catch (error) {
         console.error("Error fetching all news", error);
@@ -46,17 +69,11 @@ const VideoTab: React.FC = () => {
     fetchVideo();
   }, []);
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Table: {
-            cellPaddingBlock: 8,
-          },
-        },
-      }}
-    >
+    <CustomProvider>
+      <p className="text-xl my-2">Total: {dataVideo.length} Videos</p>
+
       <Table<VideoInterface> columns={columns} dataSource={dataVideo} />
-    </ConfigProvider>
+    </CustomProvider>
   );
 };
 

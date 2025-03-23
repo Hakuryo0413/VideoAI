@@ -1,6 +1,15 @@
-import { parse, format } from "date-fns";
-
-export const parseDate = (date: string): string => {
-  const parsedDatetime = parse(date, "yyyy-MM-dd HH:mm:ss.SSSSSS", new Date());
-  return format(parsedDatetime, "yyyy/dd/MM HH/mm/ss");
+export const dateFormater = (date: Date) => {
+  let dateString =
+    date.getUTCFullYear() +
+    "/" +
+    ("0" + (date.getUTCMonth() + 1)).slice(-2) +
+    "/" +
+    ("0" + date.getUTCDate()).slice(-2) +
+    " " +
+    ("0" + date.getUTCHours()).slice(-2) +
+    ":" +
+    ("0" + date.getUTCMinutes()).slice(-2) +
+    ":" +
+    ("0" + date.getUTCSeconds()).slice(-2);
+  return dateString;
 };

@@ -3,6 +3,7 @@ import { Space, Table } from "antd";
 import type { TableProps } from "antd";
 import apiConfig from "@src/utils/apiConfig";
 import { HistoryInterface } from "@src/types/HistoryInterface";
+import CustomProvider from "../shared/CustomProvider";
 
 const columns: TableProps<HistoryInterface>["columns"] = [
   {
@@ -68,7 +69,11 @@ const HistoryTab: React.FC = () => {
     };
     fetchNews();
   }, []);
-  return <Table<HistoryInterface> columns={columns} dataSource={dataNews} />;
+  return (
+    <CustomProvider>
+      <Table<HistoryInterface> columns={columns} dataSource={dataNews} />;
+    </CustomProvider>
+  );
 };
 
 export default HistoryTab;

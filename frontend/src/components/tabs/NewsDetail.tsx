@@ -74,7 +74,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
       console.log("Video info:", videoInfo);
       const response = await createVideoFunc(videoInfo, news_id);
       console.log("Create video:", response);
-      window.location.replace("/table");
+      navigate("/table");
     } catch (error) {
       console.error("Error updating news", error);
     }

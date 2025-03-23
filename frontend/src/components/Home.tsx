@@ -19,7 +19,7 @@ const Home: React.FC = () => (
       },
     }}
   >
-    <div className="mx-8 px-40">
+    <div className="mx-8 lg:px-20 md:px-10">
       <Tabs
         defaultActiveKey="1"
         centered
