@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
@@ -68,7 +69,7 @@ class VideoItemResponse(VideoBase):
     # metadata: Metadata
     # version: Optional[str]
     # audio_url: str
-    # created_at: str
+    created_at: Optional[datetime]
     # config: Config
     # source_url: str
     # created_by: str
