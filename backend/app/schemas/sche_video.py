@@ -1,7 +1,6 @@
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
-from sqlalchemy import  DateTime
 
 class ScriptProvider(BaseModel):
     type: str = "microsoft"
@@ -52,7 +51,6 @@ class Config(BaseModel):
     result_format: Optional[str] = "mp4"
     output_resolution: Optional[int]
 
-    
 class VideoBase(BaseModel):
     news_id: Optional[int] = None
     name: Optional[str] = None
@@ -101,23 +99,23 @@ class VideoUpdateRequest(BaseModel):
     # metadata: Metadata
     # version: str
     # audio_url: str
-    created_at: str
+    created_at: Optional[str]
     # config: Config
     # source_url: str
     # created_by: str
-    status: str
+    status: Optional[str]
     # driver_id: str
-    name: str
+    name: Optional[str]
     # modified_at: str
     # completed_at: str
-    background: Background
-    presenter_id: str
+    background: Optional[Background]
+    presenter_id: Optional[str]
     # subtitles: bool
     # id: str
     # duration: float
     # presenter_config: PresenterConfig
     # started_at: str
-    result_url: str
+    result_url: Optional[str]
     # user: User
     # owner_id: str
 
@@ -126,13 +124,13 @@ class VideoCreateRequest(BaseModel):
     # news_id: str
     # video_title: str
     # result_url: str
-    presenter_id: str = "amy-Aq6OmGZnMt"
+    presenter_id: str
     # uploaded_time: str
     # status: str
     script: Script
     # config: Config
     presenter_config: PresenterConfig
-    webhook: Optional[str] = 'https://0.0.0.0:8000/video/webhook'
+    webhook: Optional[str] = 'https://2f6b-118-71-137-242.ngrok-free.app/video/webhook'
     name: Optional[str] = None
     # id: Optional[str]
     # created_at: Optional[str] = None
@@ -144,34 +142,27 @@ class VideoCreateResponse(BaseModel):
     created_at: str
     status: str
 
-# class VideoWebhook(BaseModel):
-#     id: str
-#     status: str = "done"
-#     created_at: str
-#     # object: str
-
 class VideoGetResponse(BaseModel):
-    script: Script
-    metadata: Metadata
-    version: str
-    audio_url: str
-    created_at: str
-    config: Config
-    source_url: str
-    created_by: str
-    status: str
-    driver_id: str
-    name: str
-    modified_at: str
-    completed_at: str
-    background: Background
-    presenter_id: str
-    subtitles: bool
-    # id: str
-    duration: float
-    presenter_config: PresenterConfig
-    started_at: str
-    result_url: str
-    user: User
-    owner_id: str
+    script: Optional[Script] = None
+    metadata: Optional[Metadata] = None
+    version: Optional[str] = None
+    audio_url: Optional[str] = None
+    created_at: Optional[str] = None
+    config: Optional[Config] = None
+    source_url: Optional[str] = None
+    created_by: Optional[str] = None
+    status: Optional[str] = None
+    driver_id: Optional[str] = None
+    name: Optional[str] = None
+    modified_at: Optional[str] = None
+    completed_at: Optional[str] = None
+    background: Optional[Background] = None
+    presenter_id: Optional[str] = None
+    subtitles: Optional[bool] = None
+    duration: Optional[float] = None
+    presenter_config: Optional[PresenterConfig] = None
+    started_at: Optional[str] = None
+    result_url: Optional[str] = None
+    user: Optional[User] = None
+    owner_id: Optional[str] = None
 

@@ -1,6 +1,11 @@
+import shutil
+import requests
 from app.models.model_video import Video
 from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse, VideoUpdateRequest
 from fastapi_sqlalchemy import db
+import os
+
+from app.models.model_news import News
 
 
 class VideoService(object):
@@ -14,7 +19,7 @@ class VideoService(object):
         return db.session.query(Video).all()
     
     @staticmethod
-    def get_video_by_id(id: str):
+    def get_video_by_video_id(id: str):
         exist_video = db.session.query(Video).get(id)
         if exist_video is None:
             raise Exception('Video not exists')
@@ -31,8 +36,11 @@ class VideoService(object):
     
  
     @staticmethod
-    def update_video_detail(id : str, data: VideoGetResponse):
+    def update_video_detail(id : str, data: VideoUpdateRequest):
+        print("1 convit: ", data)
+        print("2 convit: ", id)
         video = db.session.query(Video).get(id)
+        print("3 convit: ", video)
         if video is None:
             raise Exception('Video not exists')
         # video.script = video.script if data.script is None else data.script
@@ -68,15 +76,16 @@ class VideoService(object):
         return exist_video
     
     @staticmethod
-    def post_video(data: VideoCreateResponse):
+    def post_video(data: VideoCreateResponse, news_id: str):
+        # news = db.session.query(News).get(data.news_id)
         video = Video(
             id=data.id,
             status=data.status,
             created_at=data.created_at,
-            news_id="1",
+            news_id= news_id,
             # video_title=data.name,
             # result_url=data.result_url,
-            presenter_id="324",
+            presenter_id="v2_public_alyssa_red_suite_green_screen@46XonMxLFm",
             # uploaded_time=data.uploaded_time,
             # status=data.status,
             # script=data.script,
@@ -90,3 +99,31 @@ class VideoService(object):
         db.session.add(video)
         db.session.commit()
         return video
+
+
+    @staticmethod
+    def save_video(url: str):
+        query_parameters = {"downloadformat": "mp4"}
+        response = requests.get(url, params=query_parameters)
+        print(f"{response.url = }")
+        print(f"{response.ok = }")
+        print(f"{response.status_code = }")
+
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        video_dir = os.path.join(current_dir, "..", "video")  # Đi lên một cấp rồi vào thư mục 'video'
+        os.makedirs(video_dir, exist_ok=True)
+        filename = os.path.join(video_dir,"video.mp4")
+        with open(filename, mode="wb") as file:
+            file.write(response.content)
+
+        print(f"Downloaded file {filename}")
+
+        # # Cleanup
+        # print("Removing temp files!")
+        # shutil.rmtree(filename, ignore_errors=True)
+
+        # try:
+        #     os.remove(filename)
+        # except OSError as e:
+        #     print ("Error: %s - %s." % (e.filename, e.strerror))
+        # print("Removed temp files!")

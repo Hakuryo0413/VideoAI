@@ -10,7 +10,6 @@ from app.schemas.sche_base import DataResponse
 from app.schemas.sche_news import NewsCreateRequest, NewsItemResponse, NewsUpdateRequest, NewsUpdateResponse
 from app.services.srv_news import NewsService
 from fastapi_sqlalchemy import db
-# from feature import parse_news_from_file
 
 logger = logging.getLogger()
 router = APIRouter()
@@ -23,7 +22,6 @@ def get_news(params: PaginationParams = Depends()) -> Any:
     try:
         _query = db.session.query(News)
         params.sort_by = 'news_id'
-
         news = paginate(model=News, query=_query, params=params)
         return news
     except Exception as e:
@@ -68,19 +66,13 @@ def upload_news_from_file(news_service: NewsService = Depends()) -> Any:
     API để đọc file .txt và tạo các bài viết trong database
     """
     try:
-        # Xác định thư mục hiện tại của script
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        # Đường dẫn đến file output_file.txt
-        output_file = os.path.join(current_dir, "output_file.txt")
         # Đọc và phân tích file
         news_list = NewsService.parse_news_from_file("/Users/ad2/Documents/VideoAI/scraper/output.html")
-        print("fadsa", news_list)
         # Lưu từng bài viết vào database
         created_news = []
         for news in news_list:
             new_news = news_service.create_news(news)
             created_news.append(new_news)
-        print("CREATED_NEWS", created_news)
         return DataResponse().success_response(data=created_news)
     except Exception as e:
         logger.error(e)

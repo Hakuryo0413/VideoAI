@@ -22,7 +22,7 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
   const [videoInfo, setVideoInfo] = useState<CreateVideoPayload>({
     // news_id: news_id,
     name: newsInfo?.news_title,
-    presenter_id: "amy-Aq6OmGZnMt",
+    presenter_id: "v2_public_alyssa_red_suite_green_screen@46XonMxLFm",
     webhook: configKeys.WEBHOOK,
     script: {
       type: "text",
@@ -72,9 +72,9 @@ const NewsDetail: React.FC<ScriptTabProps> = ({ news_id }) => {
   const submitGenerateVideo = async () => {
     try {
       console.log("Video info:", videoInfo);
-      const response = await createVideoFunc(videoInfo);
+      const response = await createVideoFunc(videoInfo, news_id);
       console.log("Create video:", response);
-      // window.location.replace("/");
+      window.location.replace("/table");
     } catch (error) {
       console.error("Error updating news", error);
     }

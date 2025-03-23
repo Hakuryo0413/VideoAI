@@ -8,7 +8,7 @@ import requests
 from app.helpers.paging import Page, PaginationParams, paginate
 from app.models.model_video import Video
 from app.schemas.sche_base import DataResponse
-from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse, VideoUpdateRequest
+from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse
 from fastapi_sqlalchemy import db
 
 from app.services.srv_video import VideoService
@@ -37,47 +37,43 @@ def get_list_videos(params: PaginationParams = Depends()) -> Any:
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))
 
-# @router.get("/{video_id}", response_model=DataResponse[VideoItemResponse])
-# def detail_video(video_id: int, video_service: VideoService = Depends()) -> Any:
-#     """
-#     API get detail Video
-#     """
-#     try:
-#         return DataResponse().success_response(data=video_service.get_video_by_id(video_id))
-#     except Exception as e:
-#         return HTTPException(status_code=400, detail=logger.error(e))
-
 @router.post("", response_model=DataResponse[VideoCreateResponse])
-def post_video(video_data: VideoCreateRequest, video_service: VideoService = Depends()) -> Any:
+def post_video(video_data: VideoCreateRequest, news_id: str, video_service: VideoService = Depends()) -> Any:
     """
     API Create Video
     """
     try:
+        print("VIDEO DATAAAA: ", video_data.json())
+        print("HEADERS: ", video_data)
         response = requests.post(f"{api_url}/clips", headers=headers, data = video_data.json())
+        print("RESPONSE: ", response.json())
         video_response = VideoCreateResponse.parse_obj(response.json())
-        new_video = video_service.post_video(video_response)
+        print("VIDEO RESPONSE: ", video_response)
+        new_video = video_service.post_video(video_response, news_id)
+        print("NEW VIDEO: ", new_video)
         video_dict = {
             "id": new_video.id,
             "status": new_video.status,
             "created_at": str(new_video.created_at),
             # "object": new_video.object
         }
+        print("NEW: ", video_dict)
         return DataResponse().success_response(data=video_dict)
     except Exception as e:
         return HTTPException(status_code=500, detail=logger.error(e))
     
 
 # @router.post("", response_model=DataResponse[VideoCreateResponse])
-# def post_video(video_data: VideoCreateRequest, video_service: VideoService = Depends()) -> Any:
+# def post_video(video_data: VideoCreateRequest, news_id: str, video_service: VideoService = Depends()) -> Any:
 #     """
 #     API Create Video
 #     """
 #     try:
-#         response = {'id': 'clp_XPDMSbFR1U-S06Is', 'created_at': '2025-03-14T04:00:00.328Z', 'object': 'clip', 'status': 'created'}
+#         response = {'id': 'clp_0000000000X', 'created_at': '2025-03-14T04:00:00.328Z', 'object': 'clip', 'status': 'created'}
 #         video_response = VideoCreateResponse.parse_obj(response)
-#         print("VIDEO RESPONSE: ", video_response)
-#         new_video = video_service.post_video(video_response)
-#         print("NEW VIDEO: ", new_video)
+#         print("VIDEO RESPONSESS: ", video_response)
+#         new_video = video_service.post_video(video_response, news_id)
+#         print("NEW VIDEOS: ", new_video)
 #         video_dict = {
 #             "id": new_video.id,
 #             "status": new_video.status,
@@ -85,7 +81,21 @@ def post_video(video_data: VideoCreateRequest, video_service: VideoService = Dep
 #             # "object": new_video.object
 #         }
 #         # new = VideoCreateResponse.parse_obj(new_video)
-#         print("NEW: ", video_dict)
+#         print("NEWS: ", video_dict)
+#         video = get_video_by_id('clp_XLX6NcIKJ8o9xZfgOd7j0')
+#         print("VIDEO111: ", video)
+#         print("hahahaaha:", video.data)
+#         print("TYPE: ", type(video.data))
+#         hihi = VideoGetResponse.parse_obj(video.data)
+#         kaka = VideoGetResponse(**video.data)
+#         print("HIHI1: ", hihi)
+#         print("KAKA2: ", kaka)
+#         # huhu = from_dict(data_class=VideoGetResponse, data=video.data)
+#         # print("TYPE HUHU: ", type(huhu))
+#         print("HIHI3: ", type(hihi))
+#         print("KAKA4: ", type(kaka))
+#         # print("HUHU: ", huhu)
+#         update_video(new_video.id, hihi)
 #         return DataResponse().success_response(data=video_dict)
 #     except Exception as e:
 #         return HTTPException(status_code=500, detail=logger.error(e))
@@ -98,10 +108,22 @@ def get_video_by_id(video_id: str, video_service: VideoService = Depends()) -> A
     try:
         response = requests.get(f"{api_url}/clips/{video_id}", headers=headers)
         video = response.json()
-        print("VIDEO: ", video)
-        # data = video_service.update_video(video_id, response.json())
+        print("VIDEOS: ", video)
         return DataResponse().success_response(data=video)
-        # return DataResponse().success_response(data=video_service.get_video_by_id(video_id))
+    except Exception as e:
+        return HTTPException(status_code=400, detail=logger.error(e))
+
+@router.get("/video_save/{video_id}", response_model=DataResponse[VideoGetResponse])
+def save_video_by_id(video_id: str, video_service: VideoService = Depends()) -> Any:
+    """
+    API get detail Video
+    """
+    try:
+        response = requests.get(f"{api_url}/clips/{video_id}", headers=headers)
+        video = response.json()
+        print("VIDEOS: ", video)
+        vid = video_service.save_video(video.get('result_url'))
+        return DataResponse().success_response(data=video)
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))
 
@@ -140,12 +162,15 @@ def get_video_by_news_id(news_id: str, video_service: VideoService = Depends()) 
 # clp_HlLCg3-uM5-K6DKsPz0dJ
 
 @router.post("/webhook")
-def webhook_video(video_data: VideoCreateResponse) -> Any:
-
+def webhook_video(video_data: VideoCreateResponse, video_service: VideoService = Depends()) -> Any:
     try:
         print("WEBHOOK: ", video_data)
         video = get_video_by_id(video_data.id)
+        video_obj = VideoGetResponse.parse_obj(video.data)
+        update_video= video_service.update_video_detail(video_data.id, video_obj)
+        # update_video(video_data.id, hihi)
         print("VIDEO: ", video) 
+        print("UPDATE VIDEO: ", update_video)
         return "OK"
     except Exception as e:
         return HTTPException(status_code=500, detail=logger.error(e))

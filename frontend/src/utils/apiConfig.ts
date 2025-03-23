@@ -14,11 +14,12 @@ const apiConfig = {
   updateHistory: `${configKeys.API_URL}history`,
   historyByVideoId: `${configKeys.API_URL}history/video`,
 
-  allVideo: `${configKeys.API_URL}video`,
+  allVideo: `${configKeys.API_URL}video?page_size=100&page=1&sort_by=id&order=desc`,
   videoById: `${configKeys.API_URL}video`,
   createVideo: `${configKeys.API_URL}video`,
   updateVideo: `${configKeys.API_URL}video`,
   videoByNewsId: `${configKeys.API_URL}video/news`,
+  videoSaveById: `${configKeys.API_URL}video/video_save`,
 
   allPresenter: `${configKeys.API_URL}presenter`,
 };

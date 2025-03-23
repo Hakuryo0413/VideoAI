@@ -19,7 +19,6 @@ export const getAllNews = async (): Promise<any> => {
   try {
     const response = await fetch(apiConfig.allNews);
     const data = await response.json();
-    console.log("data", data);
     return data.data;
   } catch (error) {
     console.error("Error fetching all news", error);

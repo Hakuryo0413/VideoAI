@@ -1,16 +1,19 @@
-import React, { use, useEffect, useState } from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { ConfigProvider, Table } from "antd";
 import type { TableProps } from "antd";
-import apiConfig from "@src/utils/apiConfig";
 import { VideoInterface } from "@src/types/VideoInterface";
 import { getAllVideo } from "@src/features/video/VideoDetail";
 
 const columns: TableProps<VideoInterface>["columns"] = [
   {
     title: "ID",
-    dataIndex: "news_id",
-    key: "news_id",
-    render: (text) => <a>{text}</a>,
+    dataIndex: "id",
+    key: "id",
+    render: (text, record) => (
+      <a href={`video/${record.id}`}>
+        {`${text.slice(0, 5)}...${text.slice(-5)}`}
+      </a>
+    ),
   },
   {
     title: "Title",
@@ -27,36 +30,6 @@ const columns: TableProps<VideoInterface>["columns"] = [
     dataIndex: "presenter_id",
     key: "presenter_id",
   },
-  // {
-  //   title: "Tags",
-  //   key: "tags",
-  //   dataIndex: "tags",
-  //   render: (_, { tags }) => (
-  //     <>
-  //       {tags.map((tag) => {
-  //         let color = tag.length > 5 ? "geekblue" : "green";
-  //         if (tag === "loser") {
-  //           color = "volcano";
-  //         }
-  //         return (
-  //           <Tag color={color} key={tag}>
-  //             {tag.toUpperCase()}
-  //           </Tag>
-  //         );
-  //       })}
-  //     </>
-  //   ),
-  // },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Edit</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
 ];
 
 const VideoTab: React.FC = () => {
@@ -72,7 +45,19 @@ const VideoTab: React.FC = () => {
     };
     fetchVideo();
   }, []);
-  return <Table<VideoInterface> columns={columns} dataSource={dataVideo} />;
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            cellPaddingBlock: 8,
+          },
+        },
+      }}
+    >
+      <Table<VideoInterface> columns={columns} dataSource={dataVideo} />
+    </ConfigProvider>
+  );
 };
 
 export default VideoTab;

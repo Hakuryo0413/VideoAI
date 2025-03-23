@@ -4,6 +4,7 @@ import NewsPage from "@src/pages/NewsPage";
 import Portfolio from "@src/pages/Portfolio";
 import ScriptPage from "@src/pages/ScriptPage";
 import SignUpPage from "@src/pages/SignUpPage";
+import VideoPage from "@src/pages/VideoPage";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -17,6 +18,7 @@ function HomeRouter() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/edit/:news_id" element={<ScriptPage />} />
         <Route path="/news/:news_id" element={<NewsPage />} />
+        <Route path="/video/:id" element={<VideoPage />} />
       </Routes>
     </div>
   );
