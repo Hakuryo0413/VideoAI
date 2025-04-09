@@ -18,7 +18,7 @@ import Facebook from "@src/assets/facebookLogo";
 import { UserRegisterPayload } from "@src/types/UserInterface";
 import { registerFunc } from "@src/features/auth/Register";
 import { Link } from "react-router-dom";
-
+import {Image} from "antd";
 const { Title } = Typography;
 
 const Signup: React.FC = () => {
@@ -53,9 +53,14 @@ const Signup: React.FC = () => {
       <div className="flex justify-center py-4 text-white">
         <div className="bg-[#B75A4A] p-8 rounded-2xl">
           {/* Logo and Header */}
-          <div className="my-4 text-center">
+          <div className="mb-4 mt-2 text-center">
             <div className="flex justify-center">
-              <Logo />
+              <Image
+                width={70}
+                src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/logoo.png?raw=true"
+                preview={false}
+                className="mt-4"
+              />
             </div>
             <p className="my-4 text-3xl text-white"> Sign up to get started</p>
             <p className="text-sm font-medium">

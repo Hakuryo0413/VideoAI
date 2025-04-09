@@ -15,18 +15,22 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - videoai-network
 
   alembic:
-    image: fastapi-base:latest
+    image: videoai-backend:latest
     environment:
       SQL_DATABASE_URL: 'postgresql+psycopg2://postgres:postgres@db:5432/postgres'
       SECRET_KEY: ${SECRET_KEY}
     command: [ "alembic", "upgrade", "head" ]
     depends_on:
       - db
+    networks:
+      - videoai-network
 
   app:
-    image: fastapi-base:latest
+    image: videoai-backend:latest
     environment:
       PROJECT_NAME: ${PROJECT_NAME}
       SQL_DATABASE_URL: 'postgresql+psycopg2://postgres:postgres@db:5432/postgres'
@@ -37,3 +41,8 @@ services:
     depends_on:
       - db
       - alembic
+    networks:
+      - videoai-network
+
+networks:
+  videoai-network:

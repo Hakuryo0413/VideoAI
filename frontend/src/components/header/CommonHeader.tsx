@@ -2,6 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "@src/assets/logo";
 import React from "react";
+import { Image } from "antd";
 
 //************************************
 // Description: Phần Header cho trang chung của người dùng.
@@ -34,7 +35,12 @@ function CommonHeader() {
                 href="/"
                 className="text-black flex text-bold text-4xl font-logo"
               >
-                <Logo />
+                <Image
+                  width={70}
+                  src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/VideoAILogo.png?raw=true"
+                  preview={false}
+                  className="mt-4"
+                />
               </a>
 
               <div className="absolute right-0 flex lg:relative lg:block">

@@ -18,7 +18,7 @@ driver.get("https://edition.cnn.com/")
 time.sleep(3)  # Chờ trang tải dữ liệu
 
 # Lấy danh sách bài báo (giới hạn 10 bài đầu tiên)
-articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:10]
+articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
 # Danh sách để lưu tiêu đề & URL bài báo
 # print(articles)
 article_urls = []

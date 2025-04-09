@@ -17,6 +17,7 @@ import Google from "@src/assets/googleLogo";
 import { UserLoginPayload } from "@src/types/UserInterface";
 import { loginFunc } from "@src/features/auth/Login";
 import { Link } from "react-router-dom";
+import {Image} from "antd";
 
 const Login: React.FC = () => {
   const login = async (payload: UserLoginPayload) => {
@@ -53,9 +54,14 @@ const Login: React.FC = () => {
     >
       <div className="flex justify-center py-12 text-white">
         <div className="bg-[#B75A4A] p-10 rounded-2xl">
-          <div className="my-4 text-center">
+          <div className="mb-4 mt-2 text-center">
             <div className="flex justify-center">
-              <Logo />
+              <Image
+                  width={70}
+                  src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/logoo.png?raw=true"
+                  preview={false}
+                  className="mt-4"
+                />
             </div>
             <p className="my-4 text-3xl text-white">Log in to VideoAI</p>
             <p className="text-sm font-medium">
