@@ -1,4 +1,3 @@
-import subprocess
 import os
 
 from dotenv import load_dotenv
@@ -7,8 +6,6 @@ from openai import OpenAI
 from utils import retry
 
 load_dotenv()
-p1 = subprocess.Popen(["python", "-u", "scraper.py"])
-p1.wait()
 
 # Xác định thư mục hiện tại của script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -74,7 +71,7 @@ Example output format:
 
 # Gọi API để tóm tắt nội dung
 summary_result = summarize(prompt)
-
+print(summary_result)
 # Lưu kết quả tóm tắt vào file output.html
 output_html_path = os.path.join(current_dir, "output.html")
 with open(output_html_path, "w", encoding="utf-8") as file:
