@@ -109,8 +109,10 @@ class VideoService(object):
         print(f"{response.ok = }")
         print(f"{response.status_code = }")
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        video_dir = os.path.join(current_dir, "..", "video")  # Đi lên một cấp rồi vào thư mục 'video'
+        # current_dir = os.path.dirname(os.path.abspath(__file__))
+        video_dir="/opt/airflow/video"
+        # video_dir = os.path.join(current_dir, "..", "video")  # Đi lên một cấp rồi vào thư mục 'video'
+        print(video_dir, "mamama")
         os.makedirs(video_dir, exist_ok=True)
         filename = os.path.join(video_dir,"video.mp4")
         with open(filename, mode="wb") as file:

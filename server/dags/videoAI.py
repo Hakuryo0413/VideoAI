@@ -58,6 +58,33 @@ def upload_news_from_file_task():
         print(f"❌ An unexpected error occurred: {e}")
         raise HTTPException(status_code=500, detail="An unexpected error occurred")
     
+
+def save_video_by_id(video_id: str):
+    try:
+        # Địa chỉ API và các header
+        api_url = "https://app.backend.orb.local/video/video_save"  # Cập nhật URL API của bạn
+        headers = {
+        'accept': 'application/json',  # Đảm bảo chấp nhận định dạng JSON
+        }
+        response = requests.get(f"{api_url}/{video_id}", headers=headers, verify=False)
+        # Kiểm tra phản hồi
+        if response.status_code == 200:
+            video = response.json()
+            print("VIDEOS: ", video)  # In ra video nhận được
+        else:
+            print(f"❌ Error during API call, Status code: {response.status_code}")
+            raise Exception(f"Failed to get video, status code: {response.status_code}")
+    
+    except requests.exceptions.RequestException as e:
+        # Xử lý lỗi liên quan đến yêu cầu HTTP
+        print(f"Error during API call: {e}")
+        raise Exception(f"Error during API call: {e}")
+    
+    except Exception as e:
+        # Xử lý các lỗi khác
+        print(f"Error during video save: {e}")
+        raise Exception(f"Error during video save: {e}")
+    
 # Định nghĩa DAG
 dag = DAG(
     'videoAI_dag',  # Tên DAG
@@ -75,21 +102,29 @@ check_health_task = PythonOperator(
     dag=dag,
 )
 
-summarize_task = PythonOperator(
-    task_id='run_summary_task',  # Tên task
-    python_callable=summarize_content,  # Hàm từ summary.py để thực thi
+# summarize_task = PythonOperator(
+#     task_id='run_summary_task',  # Tên task
+#     python_callable=summarize_content,  # Hàm từ summary.py để thực thi
+#     dag=dag,
+# )
+
+# # Định nghĩa task trong DAG
+# upload_news_task = PythonOperator(
+#     task_id='upload_news_task',  # Tên task
+#     python_callable=upload_news_from_file_task,  # Hàm gọi API
+#     dag=dag,
+# )
+
+save_video_task = PythonOperator(
+    task_id='save_video_task',  # Tên task
+    python_callable=save_video_by_id,  # Hàm gọi API
+    op_kwargs={'video_id': 'clp_oVV4t7S3U6qADgVySeyVu'},  # Thay thế video_id bằng ID thực tế
     dag=dag,
 )
 
-# Định nghĩa task trong DAG
-upload_news_task = PythonOperator(
-    task_id='upload_news_task',  # Tên task
-    python_callable=upload_news_from_file_task,  # Hàm gọi API
-    dag=dag,
-)
 
 
 
-
-check_health_task >> summarize_task >> upload_news_task 
+# check_health_task >> summarize_task >> upload_news_task >> save_video_task
+check_health_task >> save_video_task
 

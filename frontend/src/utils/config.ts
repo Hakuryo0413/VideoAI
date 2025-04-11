@@ -1,6 +1,6 @@
 const configKeys = {
-  API_URL: "http://localhost:8000/",
-  WEBHOOK: "https://2f6b-118-71-137-242.ngrok-free.app/video/webhook",
+  API_URL: "https://app.backend.orb.local/",
+  WEBHOOK: "https://33c2-42-114-121-151.ngrok-free.app",
 };
 
 export default configKeys;

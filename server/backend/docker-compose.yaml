@@ -42,7 +42,8 @@ services:
       - db
       - alembic
     volumes:
-      - ../scraper:/opt/airflow/scraper  
+      - ../scraper:/opt/airflow/scraper
+      - ../video:/opt/airflow/video  
     networks:
       - videoai-network
 

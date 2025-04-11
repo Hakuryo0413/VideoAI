@@ -68,8 +68,6 @@ const VideoDetailTab: React.FC<ScriptTabProps> = ({ video_id }) => {
               />
             </Form.Item>
 
-            
-
             <Form.Item label="Script" className="mb-4">
               <TextArea
                 placeholder="Edit your script here"
@@ -80,12 +78,6 @@ const VideoDetailTab: React.FC<ScriptTabProps> = ({ video_id }) => {
               />
             </Form.Item>
           </Form>
-
-          {/* <div className="flex justify-center">
-            <Button type="primary" onClick={submitGenerateVideo} size="large">
-              Generate Video
-            </Button>
-          </div> */}
         </div>
       </div>
     </ConfigProvider>

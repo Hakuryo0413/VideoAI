@@ -13,7 +13,7 @@ const columns: TableProps<VideoInterface>["columns"] = [
     dataIndex: "id",
     key: "id",
     render: (text, record) => (
-      <Link to={`video/${record.id}`}>
+      <Link to={`/video/${record.id}`}>
         {`${text.slice(0, 5)}...${text.slice(-5)}`}
       </Link>
     ),
