@@ -67,8 +67,9 @@ def upload_news_from_file(news_service: NewsService = Depends()) -> Any:
     """
     try:
         # Đọc và phân tích file
-        news_list = NewsService.parse_news_from_file("/Users/ad2/Documents/VideoAI/scraper/output.html")
+        news_list = NewsService.parse_news_from_file("/opt/airflow/scraper/output.html")
         # Lưu từng bài viết vào database
+        print(news_list)
         created_news = []
         for news in news_list:
             new_news = news_service.create_news(news)

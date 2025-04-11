@@ -51,11 +51,13 @@ class NewsService(object):
     @staticmethod
     def parse_news_from_file(file_path: str) -> List[NewsItemResponse]:
         news_list = []
+        print("tramxinhhh")
 
     # Đọc nội dung file HTML
         with open(file_path, "r", encoding="utf-8") as file:
             html_content = file.read()
         file = html_content
+    
     # Phân tích nội dung HTML
         soup = BeautifulSoup(html_content, "html.parser")
     # Tìm tất cả các thẻ <h1> và <h2>

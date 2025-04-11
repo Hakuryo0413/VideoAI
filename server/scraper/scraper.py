@@ -25,7 +25,7 @@ time.sleep(3)  # Chờ trang tải dữ liệu
 
 try:
     # Lấy danh sách bài báo (giới hạn 1 bài đầu tiên)
-    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:4]
+    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
     
     # Kiểm tra nếu articles có dữ liệu
     if articles:

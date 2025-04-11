@@ -2,6 +2,8 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 import subprocess
+import requests
+from fastapi import HTTPException
 
 
 def summarize_content():
@@ -16,6 +18,46 @@ def summarize_content():
     except Exception as e:
         print(f"Error running summary: {str(e)}")
 
+def check_health():
+    try:
+        # Gửi yêu cầu GET
+        response = requests.get("https://app.backend.orb.local/healthcheck", verify=False)
+
+        # Kiểm tra mã trạng thái HTTP
+        if response.status_code == 200:
+            print("✅ Server is healthy. Response:", response.json())  # In ra thông tin phản hồi (nếu có)
+        else:
+            print(f"❌ Health check failed. Status code: {response.status_code}")
+    except requests.exceptions.RequestException as e:
+        # Xử lý lỗi nếu có sự cố kết nối
+        print(f"❌ Error during health check: {e}")
+
+def upload_news_from_file_task():
+    url = "https://app.backend.orb.local/news/upload-news-from-file"
+    headers = {
+    'accept': 'application/json',  # Đảm bảo chấp nhận định dạng JSON
+    }
+    
+    try:
+        # Đảm bảo URL của API đúng và có thể kết nối
+        response = requests.post(url, headers=headers, data='', verify=False)
+        # Kiểm tra mã trạng thái HTTP
+        if response.status_code == 200:
+            print(f"✅ News uploaded successfully: {response.json()}")
+        else:
+            print(f"❌ Failed to upload news. Status code: {response.status_code}")
+            # Xử lý lỗi nếu API trả về mã lỗi
+            raise HTTPException(status_code=response.status_code, detail="Failed to upload news")
+    
+    except requests.exceptions.RequestException as e:
+        # Xử lý lỗi kết nối hoặc yêu cầu
+        print(f"❌ Error during API call: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        # Xử lý các lỗi khác
+        print(f"❌ An unexpected error occurred: {e}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
+    
 # Định nghĩa DAG
 dag = DAG(
     'videoAI_dag',  # Tên DAG
@@ -27,12 +69,27 @@ dag = DAG(
 )
 
 
+check_health_task = PythonOperator(
+    task_id='check_health_task',  # Tên task
+    python_callable=check_health,  # Hàm kiểm tra sức khỏe server
+    dag=dag,
+)
+
 summarize_task = PythonOperator(
     task_id='run_summary_task',  # Tên task
     python_callable=summarize_content,  # Hàm từ summary.py để thực thi
     dag=dag,
 )
 
+# Định nghĩa task trong DAG
+upload_news_task = PythonOperator(
+    task_id='upload_news_task',  # Tên task
+    python_callable=upload_news_from_file_task,  # Hàm gọi API
+    dag=dag,
+)
 
 
-summarize_task 
+
+
+check_health_task >> summarize_task >> upload_news_task 
+

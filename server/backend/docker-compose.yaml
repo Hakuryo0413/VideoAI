@@ -41,6 +41,8 @@ services:
     depends_on:
       - db
       - alembic
+    volumes:
+      - ../scraper:/opt/airflow/scraper  
     networks:
       - videoai-network
 
