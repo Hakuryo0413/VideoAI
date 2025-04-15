@@ -5,7 +5,6 @@ import subprocess
 import requests
 from fastapi import HTTPException
 
-
 def summarize_content():
     try:
         # Chạy summary.py bằng cách gọi Python từ dòng lệnh
@@ -84,47 +83,50 @@ def save_video_by_id(video_id: str):
         # Xử lý các lỗi khác
         print(f"Error during video save: {e}")
         raise Exception(f"Error during video save: {e}")
-    
+
 # Định nghĩa DAG
 dag = DAG(
     'videoAI_dag',  # Tên DAG
     description='DAG to run VideoAI script',
     schedule_interval='@daily',  # Chạy DAG mỗi ngày
     start_date=datetime(2025, 4, 10),
-    # schedule=SometimeAfterWorkdayTimetable(Time(8)),  # Chạy sau giờ làm việc
     catchup=False,  # Không quay lại chạy các lần quá khứ
 )
 
-
-check_health_task = PythonOperator(
-    task_id='check_health_task',  # Tên task
-    python_callable=check_health,  # Hàm kiểm tra sức khỏe server
-    dag=dag,
-)
-
-# summarize_task = PythonOperator(
-#     task_id='run_summary_task',  # Tên task
-#     python_callable=summarize_content,  # Hàm từ summary.py để thực thi
+# check_health_task = PythonOperator(
+#     task_id='check_health_task',  # Tên task
+#     python_callable=check_health,  # Hàm kiểm tra sức khỏe server
 #     dag=dag,
 # )
 
-# # Định nghĩa task trong DAG
+summarize_task = PythonOperator(
+    task_id='run_summary_task',  # Tên task
+    python_callable=summarize_content,  # Hàm từ summary.py để thực thi
+    dag=dag,
+)
+
+# Định nghĩa task trong DAG
 # upload_news_task = PythonOperator(
 #     task_id='upload_news_task',  # Tên task
 #     python_callable=upload_news_from_file_task,  # Hàm gọi API
 #     dag=dag,
 # )
 
-save_video_task = PythonOperator(
-    task_id='save_video_task',  # Tên task
-    python_callable=save_video_by_id,  # Hàm gọi API
-    op_kwargs={'video_id': 'clp_oVV4t7S3U6qADgVySeyVu'},  # Thay thế video_id bằng ID thực tế
-    dag=dag,
-)
+# save_video_task = PythonOperator(
+#     task_id='save_video_task',  # Tên task
+#     python_callable=save_video_by_id,  # Hàm gọi API
+#     op_kwargs={'video_id': 'clp_oVV4t7S3U6qADgVySeyVu'},  # Thay thế video_id bằng ID thực tế
+#     dag=dag,
+# )
 
-
-
+# youtube_task = PythonOperator(
+#     task_id='upload_youtube_task',  # Tên task
+#     python_callable=upload_youtube,  # Hàm gọi API
+#     dag=dag,
+# )
 
 # check_health_task >> summarize_task >> upload_news_task >> save_video_task
-check_health_task >> save_video_task
 
+# check_health_task >> save_video_task >> youtube_task
+# youtube_task
+summarize_task

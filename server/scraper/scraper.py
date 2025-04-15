@@ -1,4 +1,5 @@
 # import the required library
+from datetime import datetime
 import logging
 import time
 from selenium import webdriver
@@ -16,6 +17,9 @@ options.add_argument("--disable-gpu")  # Tắt GPU nếu không cần thiết
 # initialize an instance of the Chrome driver (browser) in headless mode
 driver = webdriver.Chrome(options=options)
 # logging.basicConfig(level=logging.DEBUG)
+current_date = datetime.now()
+
+print(f"🗓️ Ngày : {current_date.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # # visit your target site
 driver.get("https://edition.cnn.com/")
@@ -93,5 +97,4 @@ with open("output_file.txt", "w", encoding="utf-8") as f:
             print(f"✅ Đã lưu bài {index}: {title}")
         except Exception as e:
             print(f"❌ Lỗi khi ghi bài {index} vào tệp: {str(e)}")
-
 print("📂 Dữ liệu đã được lưu vào file output_file.txt")
