@@ -27,9 +27,9 @@ num_to_month = {
 title = "VIDEOAI TEST" # SET YOUR TITLE HERE
 now = datetime.datetime.now()
 # videoDirectory = "./video" + "_" + str(now.year) +  num_to_month[now.month].upper() +  "_" + str(now.day) + "/"
-backend_path = "/opt/airflow/video/"
-outputFile = os.path.join(backend_path, "video.mp4")
-# outputFile =  "/Users/ad2/Documents/VideoAI/server/video/video.mp4"
+# backend_path = "/opt/airflow/video/"
+# outputFile = os.path.join(backend_path, "video.mp4")
+outputFile =  "/Users/ad2/Documents/VideoAI/server/video/video.mp4"
 print("Output File: ", outputFile)
 # print("Backend Path: ", backend_path)
 

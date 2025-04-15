@@ -3,7 +3,6 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime
 import subprocess
 import requests
-from fastapi import HTTPException
 
 def summarize_content():
     try:
@@ -93,11 +92,11 @@ dag = DAG(
     catchup=False,  # Không quay lại chạy các lần quá khứ
 )
 
-# check_health_task = PythonOperator(
-#     task_id='check_health_task',  # Tên task
-#     python_callable=check_health,  # Hàm kiểm tra sức khỏe server
-#     dag=dag,
-# )
+check_health_task = PythonOperator(
+    task_id='check_health_task',  # Tên task
+    python_callable=check_health,  # Hàm kiểm tra sức khỏe server
+    dag=dag,
+)
 
 summarize_task = PythonOperator(
     task_id='run_summary_task',  # Tên task
@@ -129,4 +128,4 @@ summarize_task = PythonOperator(
 
 # check_health_task >> save_video_task >> youtube_task
 # youtube_task
-summarize_task
+check_health_task >> summarize_task
