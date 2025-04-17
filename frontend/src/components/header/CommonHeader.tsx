@@ -60,6 +60,13 @@ function CommonHeader() {
                     {token ? "Log out" : "Log in"}
                   </a>
                 </Disclosure.Button>
+                <Disclosure.Button
+                  className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                >
+                  <a href="/profile" className="font-bold">
+                    {token && "Profile"}
+                  </a>
+                </Disclosure.Button>
               </div>
             </div>
           </div>

@@ -60,6 +60,18 @@ def update_news(news_id: str, news_data: NewsUpdateRequest, news_service: NewsSe
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))
     
+@router.delete("/{news_id}", response_model=DataResponse[NewsItemResponse])
+def delete_news(news_id: str, news_service: NewsService = Depends()) -> Any:
+    """
+    API Delete News
+    """
+    try:
+        news = news_service.delete_news(news_id)
+        return DataResponse().success_response(data=news)
+    except Exception as e:
+        return HTTPException(status_code=400, detail=logger.error(e))
+
+
 @router.post("/upload-news-from-file", response_model=DataResponse[List[NewsItemResponse]])
 def upload_news_from_file(news_service: NewsService = Depends()) -> Any:
     """

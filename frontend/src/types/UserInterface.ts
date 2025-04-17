@@ -22,3 +22,12 @@ export interface UserRegisterPayload {
   password: string;
   role: Role | Role.GUEST;
 }
+
+export interface UserDetail {
+  user_id: string;
+  full_name: string;
+  email: string;
+  is_active: boolean;
+  role: string;
+  last_login: Date;
+}

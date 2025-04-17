@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   db:
-    image: postgres:15
+    image: postgres:15.0
     volumes:
       - ./docker/db:/var/lib/postgresql/data
       - ./postgresql.conf:/etc/postgresql/postgresql.conf
@@ -15,8 +15,8 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
-    networks:
-      - videoai-network
+    # networks:
+    #   - videoai-network
 
   alembic:
     image: videoai-backend:latest
@@ -26,8 +26,8 @@ services:
     command: [ "alembic", "upgrade", "head" ]
     depends_on:
       - db
-    networks:
-      - videoai-network
+    # networks:
+    #   - videoai-network
 
   app:
     image: videoai-backend:latest
@@ -44,8 +44,8 @@ services:
     volumes:
       - ../scraper:/opt/airflow/scraper
       - ../video:/opt/airflow/video  
-    networks:
-      - videoai-network
+    # networks:
+    #   - videoai-network
 
-networks:
-  videoai-network:
+# networks:
+#   videoai-network:

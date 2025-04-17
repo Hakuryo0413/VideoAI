@@ -3,11 +3,13 @@ import configKeys from "./config";
 const apiConfig = {
   userLogin: `${configKeys.API_URL}login/`,
   userRegister: `${configKeys.API_URL}register/`,
+  detailMe: `${configKeys.API_URL}users/me`,
 
   allNews: `${configKeys.API_URL}news?page_size=100&page=1&sort_by=id&order=desc`,
   newsById: `${configKeys.API_URL}news`,
   createNews: `${configKeys.API_URL}news`,
   updateNews: `${configKeys.API_URL}news`,
+  deleteNews: `${configKeys.API_URL}news`,
 
   allHistory: `${configKeys.API_URL}history`,
   historyById: `${configKeys.API_URL}history`,

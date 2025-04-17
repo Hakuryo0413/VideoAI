@@ -29,7 +29,7 @@ time.sleep(3)  # Chờ trang tải dữ liệu
 
 try:
     # Lấy danh sách bài báo (giới hạn 1 bài đầu tiên)
-    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
+    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:3]
     
     # Kiểm tra nếu articles có dữ liệu
     if articles:
@@ -61,7 +61,6 @@ for index, article in enumerate(articles, start=1):
 # Danh sách để lưu nội dung bài báo
 news_data = []
 
-print("vuongankit")
 # Duyệt qua từng bài báo và thu thập dữ liệu
 for index, (title, url) in enumerate(zip(article_titles, article_urls), start=1):
     try:

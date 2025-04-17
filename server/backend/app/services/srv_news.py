@@ -4,6 +4,7 @@ from app.models import News
 from app.schemas.sche_news import NewsCreateRequest, NewsItemResponse, NewsUpdateRequest
 from fastapi_sqlalchemy import db
 from bs4 import BeautifulSoup  # Sử dụng thư viện BeautifulSoup để phân tích HTML
+from app.models.model_video import Video
 
 
 class NewsService(object):
@@ -48,6 +49,18 @@ class NewsService(object):
         db.session.commit()
         return news
     
+    @staticmethod
+    def delete_news(news_id: str):
+        news = db.session.query(News).get(news_id)
+        if news is None:
+            raise Exception('News not exists')
+        video = db.session.query(Video).filter(Video.news_id == news_id).first()
+        if video is not None:
+            raise Exception('Cannot delete news as it is referenced in a video')
+        db.session.delete(news)
+        db.session.commit()
+        return news
+
     @staticmethod
     def parse_news_from_file(file_path: str) -> List[NewsItemResponse]:
         news_list = []

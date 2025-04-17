@@ -4,6 +4,7 @@ from app.schemas.sche_news import NewsUpdateRequest
 from fastapi_sqlalchemy import db
 
 from app.schemas.sche_presenter import PresenterCreateRequest
+from app.models.model_video import Video
 
 
 class PresenterService(object):
@@ -42,3 +43,15 @@ class PresenterService(object):
         db.session.add(new_presenter)
         db.session.commit()
         return new_presenter
+    
+    @staticmethod
+    def delete_presenter(presenter_id: str):
+        presenter = db.session.query(Presenter).get(presenter_id)
+        if presenter is None:
+            raise Exception('Presenter not exists')
+        video = db.session.query(Video).filter(Video.presenter_id == presenter_id).first()
+        if video is not None:
+            raise Exception('Cannot delete presenter as it is referenced in a video')
+        db.session.delete(presenter)
+        db.session.commit()
+        return presenter

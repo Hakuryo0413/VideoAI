@@ -22,7 +22,7 @@ def upload_youtube():
 dag = DAG(
     'upload_youtube_dag',
     description='DAG to run upload video on Youtube',
-    schedule_interval='@daily',
+    schedule_interval='0 20 * * *',
     start_date=datetime(2025, 4, 10),
     catchup=False, 
 )

@@ -17,7 +17,7 @@ import Google from "@src/assets/googleLogo";
 import { UserLoginPayload } from "@src/types/UserInterface";
 import { loginFunc } from "@src/features/auth/Login";
 import { Link } from "react-router-dom";
-import {Image} from "antd";
+import { Image } from "antd";
 
 const Login: React.FC = () => {
   const login = async (payload: UserLoginPayload) => {
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
       const data = await loginFunc(payload);
       if (data?.data?.access_token) {
         localStorage.setItem("token", data.data.access_token);
-        window.location.href = "/";
+        window.location.href = "/table";
       } else {
         alert("Login failed: No access token received");
       }
@@ -57,11 +57,11 @@ const Login: React.FC = () => {
           <div className="mb-4 mt-2 text-center">
             <div className="flex justify-center">
               <Image
-                  width={70}
-                  src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/logoo.png?raw=true"
-                  preview={false}
-                  className="mt-4"
-                />
+                width={70}
+                src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/logoo.png?raw=true"
+                preview={false}
+                className="mt-4"
+              />
             </div>
             <p className="my-4 text-3xl text-white">Log in to VideoAI</p>
             <p className="text-sm font-medium">
