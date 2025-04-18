@@ -46,6 +46,17 @@ const NewsTab: React.FC = () => {
       width: "200px",
     },
     {
+      title: "Source URL",
+      dataIndex: "source_url",
+      key: "source_url",
+      width: "200px",
+      render: (text) => (
+        <a href={text} target="_blank">
+          {text}
+        </a>
+      ),
+    },
+    {
       title: "Updated At",
       dataIndex: "updated_at",
       key: "updated_at",

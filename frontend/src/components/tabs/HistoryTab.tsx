@@ -71,7 +71,7 @@ const HistoryTab: React.FC = () => {
   }, []);
   return (
     <CustomProvider>
-      <Table<HistoryInterface> columns={columns} dataSource={dataNews} />;
+      <Table<HistoryInterface> columns={columns} dataSource={dataNews} />
     </CustomProvider>
   );
 };

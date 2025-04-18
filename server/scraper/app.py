@@ -53,17 +53,20 @@ Please summarize each of the following articles in 200 words each. Skip unnecess
   - "Entertainment"
   - "Health"
   - "Science"
+- The raw url is wrapped in an <h4> tag and is unchanged from the file_content.
 - Each article is separated by a <br> tag.
 
 Example output format:
 <h1>[Title]</h1>
 <h2>[Content]</h2>
 <h3>[Category]</h3>
+<h4>[Url]</h4>
 <br>
 
 <h1>[Title]</h1>
 <h2>[Content]</h2>
 <h3>[Category]</h3>
+<h4>[Url]</h4>
 <br>
 
 {file_content}

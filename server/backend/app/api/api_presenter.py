@@ -76,3 +76,11 @@ def create_presenter(presenter_data: PresenterCreateRequest, presenter_service: 
         return DataResponse().success_response(data=new_presenter)
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))
+    
+@router.delete('/{presenter_id}', response_model=DataResponse[PresenterItemResponse])
+def delete_presenter(presenter_id: str, presenter_service: PresenterService = Depends()) -> Any:
+    try:
+        presenter = presenter_service.delete_presenter(presenter_id)
+        return DataResponse().success_response(data=presenter)
+    except Exception as e:
+        return HTTPException(status_code=400, detail=logger.error(e))

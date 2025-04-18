@@ -77,16 +77,18 @@ class NewsService(object):
         h1_tags = soup.find_all("h1")
         h2_tags = soup.find_all("h2")
         h3_tags = soup.find_all("h3")
+        h4_tags = soup.find_all("h4")
     # Kiểm tra số lượng thẻ <h1> và <h2> phải bằng nhau
         if len(h1_tags) != len(h2_tags):
             raise ValueError("Số lượng thẻ <h1> và <h2> không khớp.")
 
     # Trích xuất tiêu đề và nội dung
-        for h1, h2, h3 in zip(h1_tags, h2_tags, h3_tags):
+        for h1, h2, h3, h4 in zip(h1_tags, h2_tags, h3_tags, h4_tags):
             title = h1.get_text(strip=True)  # Lấy nội dung của thẻ <h1>
             content = h2.get_text(strip=True)  # Lấy nội dung của thẻ <h2>
             category = h3.get_text(strip=True)
+            url = h4.get_text(strip=True)
             news_id = str(uuid.uuid4())  # Tạo một UUID ngẫu nhiên
-            news_item = NewsItemResponse(news_id=news_id,news_title=title, summary=content, category=category)
+            news_item = NewsItemResponse(news_id=news_id,news_title=title, summary=content, category=category, source_url=url)
             news_list.append(news_item)
         return news_list

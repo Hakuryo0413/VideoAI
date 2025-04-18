@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag } from "antd";
+import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { VideoInterface } from "@src/types/VideoInterface";
 import { getAllVideo } from "@src/features/video/VideoDetail";
 import { dateFormater } from "@src/utils/common";
 import CustomProvider from "../shared/CustomProvider";
 import { Link } from "react-router-dom";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const columns: TableProps<VideoInterface>["columns"] = [
   {
@@ -49,6 +50,21 @@ const columns: TableProps<VideoInterface>["columns"] = [
     title: "Presenter ID",
     dataIndex: "presenter_id",
     key: "presenter_id",
+  },
+  {
+    title: "Action",
+    key: "action",
+    render: (_, record) => (
+      <Space size="middle">
+        <Link to={`/edit/${record.news_id}`}>
+          <EditOutlined />
+        </Link>
+        <Link to={""}>
+          <DeleteOutlined />
+        </Link>
+      </Space>
+    ),
+    width: "20px",
   },
 ];
 

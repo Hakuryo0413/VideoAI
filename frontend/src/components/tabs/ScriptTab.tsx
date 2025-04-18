@@ -122,26 +122,34 @@ const ScriptTab: React.FC<ScriptTabProps> = ({ news_id }) => {
                 allowClear
               />
             </Form.Item>
+            <div className="flex justify-between gap-4">
+              <Form.Item label="Category" className="mb-4 flex-1/2">
+                <Select
+                  placeholder="Select a category"
+                  value={category}
+                  onChange={handleCategoryChange}
+                >
+                  {categories.map((cat) => (
+                    <Option key={cat} value={cat}>
+                      {cat}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </div>
 
-            <Form.Item label="Category" className="mb-4">
-              <Select
-                placeholder="Select a category"
-                style={{ width: "100%" }}
-                value={category}
-                onChange={handleCategoryChange}
-              >
-                {categories.map((cat) => (
-                  <Option key={cat} value={cat}>
-                    {cat}
-                  </Option>
-                ))}
-              </Select>
+            <Form.Item label="Source URL" className="mb-4">
+              <Input
+                placeholder="Enter news title"
+                value={newsInfo?.source_url}
+                allowClear
+              />
             </Form.Item>
 
             <Form.Item label="Script" className="mb-4">
               <TextArea
                 placeholder="Edit your script here"
-                rows={12}
+                rows={8}
                 showCount
                 allowClear
                 onChange={handleScriptChange}

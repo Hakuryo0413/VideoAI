@@ -24,7 +24,7 @@ class Script(BaseModel):
     type: str = "text"
     subtitles: bool = False
     provider: ScriptProvider
-    input: str = "Making videos is easy with D-ID"
+    input: str = ""
     ssml: bool = False
 
 # class Config(BaseModel):
@@ -131,7 +131,7 @@ class VideoCreateRequest(BaseModel):
     script: Script
     # config: Config
     presenter_config: PresenterConfig
-    webhook: Optional[str] = 'https://33c2-42-114-121-151.ngrok-free.app'
+    webhook: Optional[str] = 'https://3e08-42-113-220-88.ngrok-free.app/video/webhook'
     name: Optional[str] = None
     # id: Optional[str]
     # created_at: Optional[str] = None

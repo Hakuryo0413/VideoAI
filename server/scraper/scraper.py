@@ -29,7 +29,7 @@ time.sleep(3)  # Chờ trang tải dữ liệu
 
 try:
     # Lấy danh sách bài báo (giới hạn 1 bài đầu tiên)
-    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:3]
+    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
     
     # Kiểm tra nếu articles có dữ liệu
     if articles:
@@ -93,6 +93,7 @@ with open("output_file.txt", "w", encoding="utf-8") as f:
             f.write(f"Article {index}: {title} \n")
             f.write(content)
             f.write("\n")
+            f.write(f"URL: {url}\n")
             print(f"✅ Đã lưu bài {index}: {title}")
         except Exception as e:
             print(f"❌ Lỗi khi ghi bài {index} vào tệp: {str(e)}")
