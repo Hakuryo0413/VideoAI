@@ -22,6 +22,7 @@ const apiConfig = {
   updateVideo: `${configKeys.API_URL}video`,
   videoByNewsId: `${configKeys.API_URL}video/news`,
   videoSaveById: `${configKeys.API_URL}video/video_save`,
+  videoUpdateStatus: `${configKeys.API_URL}video/status`,
 
   allPresenter: `${configKeys.API_URL}presenter`,
 };

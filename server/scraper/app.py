@@ -33,16 +33,14 @@ def summarize(content: str) -> str | None:
         )
     except:
         raise
-
     # Lấy kết quả tóm tắt
     summary_result = completion.choices[0].message.content
-
     return summary_result
 
 
 # Tạo prompt tóm tắt từ nội dung file
 prompt = f"""
-Please summarize each of the following articles in 200 words each. Skip unnecessary introductions. Format the output as an HTML file where:
+Please summarize each of the following articles in 100 words each. Skip unnecessary introductions. Format the output as an HTML file where:
 - The title is wrapped in an <h1> tag.
 - The content is wrapped in an <h2> tag.
 - The category is wrapped in an <h3> tag. Choose the category from the following list:

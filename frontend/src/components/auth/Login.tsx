@@ -58,7 +58,7 @@ const Login: React.FC = () => {
             <div className="flex justify-center">
               <Image
                 width={70}
-                src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/logoo.png?raw=true"
+                src="https://res-console.cloudinary.com/dkglfu0md/media_explorer_thumbnails/b3a4c29fcb81b1f2fbe0769f4cd8e33a/detailed"
                 preview={false}
                 className="mt-4"
               />

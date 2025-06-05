@@ -23,7 +23,7 @@ class HistoryCreateRequest(HistoryBase):
     history_id: str
     video_id: str
     status: str
-    reviewed_at: str
+    reviewed_at: Optional[str] = None
 
 class HistoryUpdateRequest(BaseModel):
     history_id: str

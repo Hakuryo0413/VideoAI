@@ -1,13 +1,8 @@
-import shutil
 import requests
 from app.models.model_video import Video
-from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse, VideoUpdateRequest
+from app.schemas.sche_video import  VideoCreateResponse, VideoStatusRequest, VideoUpdateRequest
 from fastapi_sqlalchemy import db
 import os
-
-from app.models.model_news import News
-
-
 class VideoService(object):
     _instance = None
 
@@ -68,6 +63,15 @@ class VideoService(object):
         db.session.commit()
         return data
     
+    @staticmethod
+    def update_video_status(video_id : str, data: VideoStatusRequest):
+        video = db.session.query(Video).get(video_id)
+        if video is None:
+            raise Exception('Video not exists')
+        video.status = video.status if data.status is None else data.status
+        db.session.commit()
+        return data
+
     @staticmethod
     def get_detail_video_by_news_id(news_id: str):
         exist_video = db.session.query(Video).filter(Video.news_id == news_id).first()

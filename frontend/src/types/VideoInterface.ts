@@ -42,3 +42,7 @@ export interface CreateVideoPayload {
   script: Script;
   presenter_config: PresenterConfig;
 }
+
+export interface UpdateStatusPayload {
+  status: string;
+}

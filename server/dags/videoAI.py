@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 import subprocess
-from fastapi import HTTPException
+# from fastapi import HTTPException
 import requests
 from airflow.exceptions import AirflowException  # Use AirflowException for errors
 
@@ -47,16 +47,16 @@ def upload_news_from_file_task():
         else:
             print(f"❌ Failed to upload news. Status code: {response.status_code}")
             # Xử lý lỗi nếu API trả về mã lỗi
-            raise HTTPException(status_code=response.status_code, detail="Failed to upload news")
+            raise ValueError(status_code=response.status_code, detail="Failed to upload news")
     
     except requests.exceptions.RequestException as e:
         # Xử lý lỗi kết nối hoặc yêu cầu
         print(f"❌ Error during API call: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise ValueError(status_code=500, detail=str(e))
     except Exception as e:
         # Xử lý các lỗi khác
         print(f"❌ An unexpected error occurred: {e}")
-        raise HTTPException(status_code=500, detail="An unexpected error occurred")
+        raise ValueError(status_code=500, detail="An unexpected error occurred")
     
 
 def save_video_by_id(video_id: str):
@@ -84,22 +84,6 @@ def save_video_by_id(video_id: str):
         # Xử lý các lỗi khác
         print(f"Error during video save: {e}")
         raise Exception(f"Error during video save: {e}")
-
-def upload_youtube():
-    try:
-        result = subprocess.run(["python3", "/opt/airflow/youtube/main.py"], capture_output=True, text=True)
-        print("adiusfjisdjf")
-        print(result)
-        if result.returncode == 0:
-            print(f"✅ Upload to YouTube successful: {result.stdout}")
-        else:
-            print(f"❌ Failed to upload to YouTube. Error: {result.stderr}")
-            raise AirflowException("Failed to upload to YouTube.")
-
-    except Exception as e:
-        print(f"Error during uploading to YouTube: {e}")
-        raise AirflowException(str(e))
-
 
 # Định nghĩa DAG
 dag = DAG(
@@ -129,21 +113,19 @@ upload_news_task = PythonOperator(
     dag=dag,
 )
 
+video_id = 'clp_CXx-QnZs51WnN61O-wI9Y'
+
 save_video_task = PythonOperator(
     task_id='save_video_task',  # Tên task
     python_callable=save_video_by_id,  # Hàm gọi API
-    op_kwargs={'video_id': 'clp_oVV4t7S3U6qADgVySeyVu'},  # Thay thế video_id bằng ID thực tế
+    op_kwargs={'video_id': video_id},  # Thay thế video_id bằng ID thực tế
     dag=dag,
 )
 
 youtube_task = PythonOperator(
     task_id='upload_youtube_task',  # Tên task
-    python_callable=upload_youtube,  # Hàm gọi API
+    python_callable=check_health,  # Hàm gọi API
     dag=dag,
 )
 
 check_health_task >> summarize_task >> upload_news_task >> save_video_task >> youtube_task
-
-# check_health_task >> save_video_task >> youtube_task
-# youtube_task
-# check_health_task >> summarize_task >> upload_news_task

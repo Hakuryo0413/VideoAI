@@ -24,10 +24,185 @@ vuongankit
 ✅ Hoàn tất bài 1
 ✅ Đã lưu bài 1: Russian strikes on Ukraine
 📂 Dữ liệu đã được lưu vào file output_file.txt
-🗓️ Ngày : 2025-04-15 16:00:05
+🗓️ Ngày : 2025-04-19 16:00:05
 ✅ Đã lấy được 1 bài báo.
 [<selenium.webdriver.remote.webelement.WebElement (session="1345ead2786ffcc0b20514e88c72f20d", element="f.4593FEDEA74BAA1E650B3E0588BAF3BD.d.FA25C7A94101B1B40B160951F8CE3196.e.5")>]
-vuongankit
 ✅ Hoàn tất bài 1
 ✅ Đã lưu bài 1: Russia-Ukraine war
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-04-20 16:00:14
+✅ Đã lấy được 1 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="740c16e424c240053520518358353e64", element="f.883EBC9A6FC6EA1080C343683B971765.d.6FF93743FCD9C4195866DBC4B4CB2236.e.11")>]
+✅ Hoàn tất bài 1
+✅ Đã lưu bài 1: Putin declares Easter ceasefire
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-04-21 16:00:05
+✅ Đã lấy được 1 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="0239750941535153bad6cfb84e1009c0", element="f.C3582771D3A5953221150C55E913278A.d.830A833E9BE4DE7CB5890379C0304848.e.12")>]
+❌ Lỗi khi lấy bài 1: name 'content' is not defined
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-04-24 16:00:08
+✅ Đã lấy được 1 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="dee798e6ce9abff5a5281b57c3907e82", element="f.FF31EF84C8FB8075388C872FC610A5FC.d.990A4BA8E14D763D8CA9A8D534B73BA9.e.6")>]
+✅ Hoàn tất bài 1
+✅ Đã lưu bài 1: Russia launches strikes against Kyiv
+📂 Dữ liệu đã được lưu vào file output_file.txt
+Traceback (most recent call last):
+  File "/Users/ad2/Documents/VideoAI/server/scraper/scraper.py", line 5, in <module>
+    from selenium import webdriver
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/__init__.py", line 29, in <module>
+    from .firefox.firefox_profile import FirefoxProfile  # noqa
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/firefox/firefox_profile.py", line 31, in <module>
+    from typing_extensions import deprecated
+ImportError: cannot import name 'deprecated' from 'typing_extensions' (/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/typing_extensions.py)
+Traceback (most recent call last):
+  File "/Users/ad2/Documents/VideoAI/server/scraper/scraper.py", line 5, in <module>
+    from selenium import webdriver
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/__init__.py", line 29, in <module>
+    from .firefox.firefox_profile import FirefoxProfile  # noqa
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/firefox/firefox_profile.py", line 31, in <module>
+    from typing_extensions import deprecated
+ImportError: cannot import name 'deprecated' from 'typing_extensions' (/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/typing_extensions.py)
+🗓️ Ngày : 2025-05-02 16:00:10
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="f3cc0f271d350a4be7383c30e90ad80a", element="f.D369B221B210FA5E20FC6DE6DE6721F2.d.D9C29186C7B8BD58A71BB30FA43B733D.e.21")>, <selenium.webdriver.remote.webelement.WebElement (session="f3cc0f271d350a4be7383c30e90ad80a", element="f.D369B221B210FA5E20FC6DE6DE6721F2.d.D9C29186C7B8BD58A71BB30FA43B733D.e.22")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Ukraine minerals deal
+✅ Đã lưu bài 2: Elon Musk compares himself to Buddha
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-05 16:00:04
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="b6b757ad418f236aa76321438acd53a7", element="f.8BA2D01EFE397F37B1A5F28D56787E48.d.5F713C25289EC04D8A23833CCA3B91D3.e.6")>, <selenium.webdriver.remote.webelement.WebElement (session="b6b757ad418f236aa76321438acd53a7", element="f.8BA2D01EFE397F37B1A5F28D56787E48.d.5F713C25289EC04D8A23833CCA3B91D3.e.9")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Venice sinking
+✅ Đã lưu bài 2: Remembering Princess Diana at the Met Gala
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-06 16:00:04
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="068705842aebf147b08bde3f01501a0f", element="f.39F5AE0D283DCFF7C156A6C058DF68FC.d.16DBA2A16FD5A2B164E7EADA57FA706D.e.9")>, <selenium.webdriver.remote.webelement.WebElement (session="068705842aebf147b08bde3f01501a0f", element="f.39F5AE0D283DCFF7C156A6C058DF68FC.d.16DBA2A16FD5A2B164E7EADA57FA706D.e.12")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Israel’s war in Gaza
+✅ Đã lưu bài 2: Grief and fear in Kashmir valleys
+📂 Dữ liệu đã được lưu vào file output_file.txt
+Traceback (most recent call last):
+  File "/Users/ad2/Documents/VideoAI/server/scraper/scraper.py", line 18, in <module>
+    driver = webdriver.Chrome(options=options)
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/chrome/webdriver.py", line 45, in __init__
+    super().__init__(
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/chromium/webdriver.py", line 66, in __init__
+    super().__init__(command_executor=executor, options=options)
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 250, in __init__
+    self.start_session(capabilities)
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 342, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "/Users/ad2/Documents/VideoAI/.venv/lib/python3.10/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: Unable to receive message from renderer
+  (Session info: chrome=136.0.7103.48)
+Stacktrace:
+0   chromedriver                        0x000000010b6288b8 chromedriver + 5986488
+1   chromedriver                        0x000000010b61f9ea chromedriver + 5949930
+2   chromedriver                        0x000000010b0d8600 chromedriver + 415232
+3   chromedriver                        0x000000010b0c00f5 chromedriver + 315637
+4   chromedriver                        0x000000010b0bfe24 chromedriver + 314916
+5   chromedriver                        0x000000010b0bdccd chromedriver + 306381
+6   chromedriver                        0x000000010b0be48a chromedriver + 308362
+7   chromedriver                        0x000000010b0bcf51 chromedriver + 302929
+8   chromedriver                        0x000000010b0bc767 chromedriver + 300903
+9   chromedriver                        0x000000010b0bc2fd chromedriver + 299773
+10  chromedriver                        0x000000010b0bbf84 chromedriver + 298884
+11  chromedriver                        0x000000010b0db44e chromedriver + 427086
+12  chromedriver                        0x000000010b0ac8a0 chromedriver + 235680
+13  chromedriver                        0x000000010b0ac3b4 chromedriver + 234420
+14  chromedriver                        0x000000010b15eddd chromedriver + 966109
+15  chromedriver                        0x000000010b15e096 chromedriver + 962710
+16  chromedriver                        0x000000010b1500e3 chromedriver + 905443
+17  chromedriver                        0x000000010b11c61d chromedriver + 693789
+18  chromedriver                        0x000000010b11d281 chromedriver + 696961
+19  chromedriver                        0x000000010b5e6580 chromedriver + 5715328
+20  chromedriver                        0x000000010b5ea445 chromedriver + 5731397
+21  chromedriver                        0x000000010b5c0ed0 chromedriver + 5562064
+22  chromedriver                        0x000000010b5eae7b chromedriver + 5734011
+23  chromedriver                        0x000000010b5afde4 chromedriver + 5492196
+24  chromedriver                        0x000000010b60da98 chromedriver + 5876376
+25  chromedriver                        0x000000010b60dc60 chromedriver + 5876832
+26  chromedriver                        0x000000010b61f5b1 chromedriver + 5948849
+27  libsystem_pthread.dylib             0x00007ff81a7881d3 _pthread_start + 125
+28  libsystem_pthread.dylib             0x00007ff81a783bd3 thread_start + 15
+
+🗓️ Ngày : 2025-05-11 16:00:06
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="dde823636eaa355286b1fb3f39c17a3d", element="f.E455E918AAF1A23DB946175FF1EF9A85.d.27996AF7C2CA7599237B4370595D89B8.e.13")>, <selenium.webdriver.remote.webelement.WebElement (session="dde823636eaa355286b1fb3f39c17a3d", element="f.E455E918AAF1A23DB946175FF1EF9A85.d.27996AF7C2CA7599237B4370595D89B8.e.16")>]
+❌ Lỗi khi lấy bài 1: name 'content' is not defined
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Rodrigo Duterte
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-12 16:00:05
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="697a538c66326a842b5bef8a8263cf52", element="f.B3929135C077F8C117B75EC7437B1CEF.d.FAFE349C73BE79C64DDCF206374F0297.e.6")>, <selenium.webdriver.remote.webelement.WebElement (session="697a538c66326a842b5bef8a8263cf52", element="f.B3929135C077F8C117B75EC7437B1CEF.d.FAFE349C73BE79C64DDCF206374F0297.e.9")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: India-Pakistan ceasefire
+✅ Đã lưu bài 2: US-China trade talks
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-14 16:00:03
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="a83e217b8cc95ea53939b19b9c883fe6", element="f.69A61C6F0D621451086328EBDE7C9DDA.d.BCEE3C6986606DEF23D69A13008CC577.e.2")>, <selenium.webdriver.remote.webelement.WebElement (session="a83e217b8cc95ea53939b19b9c883fe6", element="f.69A61C6F0D621451086328EBDE7C9DDA.d.BCEE3C6986606DEF23D69A13008CC577.e.5")>]
+❌ Lỗi khi lấy bài 1: name 'content' is not defined
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: India-Pakistan ceasefire
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-15 16:00:08
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="d3490418e4a3027c3a2c3e45a61afc37", element="f.6759039C29454ECC7E7B2663C953F06D.d.47D35433E0B3573F995DBEDEDC3B47DE.e.11")>, <selenium.webdriver.remote.webelement.WebElement (session="d3490418e4a3027c3a2c3e45a61afc37", element="f.6759039C29454ECC7E7B2663C953F06D.d.47D35433E0B3573F995DBEDEDC3B47DE.e.14")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Russia-Ukraine talks in Turkey
+✅ Đã lưu bài 2: TikTok beauty influencer shot dead
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-19 16:00:03
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="cb9ff064b1297696f0687ff854b20328", element="f.192D981ABF0DC6DA92D15B90E6C9BEED.d.E652F7B96618DD76AAC373E1DB4B3AEC.e.11")>, <selenium.webdriver.remote.webelement.WebElement (session="cb9ff064b1297696f0687ff854b20328", element="f.192D981ABF0DC6DA92D15B90E6C9BEED.d.E652F7B96618DD76AAC373E1DB4B3AEC.e.14")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Brooklyn Bridge incident
+✅ Đã lưu bài 2: Romania presidential election
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-20 16:00:04
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="ecaf74b0e837c3d3550b1f425edc52ad", element="f.EDCE81978980DACD2AA331128DDC84D7.d.10226209019DF58860604BCFD5D0B930.e.8")>, <selenium.webdriver.remote.webelement.WebElement (session="ecaf74b0e837c3d3550b1f425edc52ad", element="f.EDCE81978980DACD2AA331128DDC84D7.d.10226209019DF58860604BCFD5D0B930.e.11")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Israel’s ground operation in Gaza
+✅ Đã lưu bài 2: ‘Napalm Girl’
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-05-21 16:00:04
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="6a2e799cd7e08c29f1b0eeb25e5287cc", element="f.D0B6572000A14F175BD54B0F7DC0C7CD.d.5F313E3904D0D3583A32E7CFB08561F2.e.2")>, <selenium.webdriver.remote.webelement.WebElement (session="6a2e799cd7e08c29f1b0eeb25e5287cc", element="f.D0B6572000A14F175BD54B0F7DC0C7CD.d.5F313E3904D0D3583A32E7CFB08561F2.e.5")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Trump’s ‘Golden Dome’
+✅ Đã lưu bài 2: Russian ‘shadow fleet’ vessel
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-06-04 16:00:09
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="e68ee5280dce3f311fdfe7aa6de52843", element="f.6925AF88F53D11D98BB02A68BB657A8B.d.BA1380E4410D889B0347CDA6E8C478CB.e.2")>, <selenium.webdriver.remote.webelement.WebElement (session="e68ee5280dce3f311fdfe7aa6de52843", element="f.6925AF88F53D11D98BB02A68BB657A8B.d.BA1380E4410D889B0347CDA6E8C478CB.e.11")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Gaza aid distribution
+✅ Đã lưu bài 2: Lee Jae-myung
+📂 Dữ liệu đã được lưu vào file output_file.txt
+🗓️ Ngày : 2025-06-05 16:00:13
+✅ Đã lấy được 2 bài báo.
+[<selenium.webdriver.remote.webelement.WebElement (session="07479098839444f816c738052d27f12a", element="f.712C6E5DEE0998B43140C1A80071B10C.d.439392D685B1660E11C325963C4A64C7.e.13")>, <selenium.webdriver.remote.webelement.WebElement (session="07479098839444f816c738052d27f12a", element="f.712C6E5DEE0998B43140C1A80071B10C.d.439392D685B1660E11C325963C4A64C7.e.16")>]
+✅ Hoàn tất bài 1
+✅ Hoàn tất bài 2
+✅ Đã lưu bài 1: Trump-Putin phone call
+✅ Đã lưu bài 2: Harvard’s international students
 📂 Dữ liệu đã được lưu vào file output_file.txt

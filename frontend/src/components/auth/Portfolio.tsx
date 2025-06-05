@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 const links = [
   { name: "Phù hợp cho tất cả giai đoạn phát triển", href: "#" },
   { name: "Dự án đa dạng", href: "#" },
@@ -12,53 +13,32 @@ const stats = [
 ];
 
 function Portfolio() {
+  const navigate = useNavigate();
   return (
-    <div className="relative isolate overflow-hidden py-24 sm:py-32 text-white ">
-      <div className="max-w-8xl px-6 lg:px-8 ">
+    <div className="pt-2">
+      <img
+        src="https://res-console.cloudinary.com/dkglfu0md/media_explorer_thumbnails/5fc329e680ba6c7bcf4c84db8ec68088/detailed"
+        alt="Image"
+        className="absolute"
+      />
+      <div className="max-w-8xl px-6 lg:px-8 absolute pt-40">
         <div className="flex items-center" style={{ marginTop: -20 }}>
-          <div className="" style={{ marginLeft: 90 }}>
-            <h2 className="text-3xl font-black font-mono  sm:text-7xl">
-              Create
-              <span style={{ color: "orange", display: "inline" }}>
-                VideoAI
-              </span>
+          <div className="text-center px-70">
+            <h2 className="text-3xl text-[#f4f2f0] font-black font-mono  sm:text-7xl">
+              Create News Video In Minutes
             </h2>
-            <p className="mt-6 text-xl leading-8 text-h6 font-semibold">
-              Gặp gỡ các nhà đồng sáng lập, bạn sẽ nhanh chóng tìm thấy
-              <br></br>
-              các thành viên phù hợp cho đội ngũ startup của mình hoặc các{" "}
-              <br></br> dự án thú vị để tham gia. Đây là nơi dành cho các
-              startup tài năng.
+            <p className="mt-6 text-xl leading-8 text-[16px] text-gray-300 font-semibold">
+              Turn complex news articles into engaging videos that inform and
+              inspire — all with the power of intelligent automation designed
+              for modern journalism.
             </p>
-            <Button className="mt-6 !bg-orange-500 !text-white">
-              Get Started
+            <Button
+              className="mt-6 !bg-orange-500 !text-white !border-none"
+              onClick={() => navigate("/table")}
+            >
+              Get Started Now
             </Button>
           </div>
-          <img
-            src="https://res.cloudinary.com/dkglfu0md/image/upload/v1695456140/homepage_h1nvin.png"
-            alt="Img"
-            style={{ marginLeft: 250, maxWidth: 450, maxHeight: 450 }}
-          />
-        </div>
-
-        <div className="mx-auto mt-10 max-w-2xl lg:mx-24 lg:max-w-none">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 font-semibold text-xl leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
-            {links.map((link) => (
-              <a key={link.name} href={link.href}>
-                {link.name} <span aria-hidden="true">&rarr;</span>
-              </a>
-            ))}
-          </div>
-          <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4 text-white">
-            {stats.map((stat) => (
-              <div key={stat.name} className="flex flex-col-reverse">
-                <dt className="text-base leading-7 text-white">{stat.name}</dt>
-                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
     </div>

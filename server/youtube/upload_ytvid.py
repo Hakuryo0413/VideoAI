@@ -1,6 +1,9 @@
 import datetime
+import os
 from googleapiclient.http import MediaFileUpload
 
+playlist_id = os.getenv('PLAYLIST_ID')
+channel_id = os.getenv('CHANNEL_ID')
 def uploadYtvid(VIDEO_FILE_NAME='',
                 title='Intro Video!',
                 description=':) ',
@@ -40,6 +43,22 @@ def uploadYtvid(VIDEO_FILE_NAME='',
     """
 
     print("Upload Successful!")
+
+    # request_playlist_body = {
+    #     'snippet': {
+    #         'playlistId': playlist_id,
+    #         'resourceId': {
+    #             "channelId": channel_id,
+    #             "videoId": response_upload.get('id'),
+    #             "kind": "youtube#video"
+    #         },
+    #     }
+    # }
+    # # Add the video to the playlist
+    # playlistItem = googleAPI.playlistItems().insert(
+    #     part='snippet',
+    #     body=request_playlist_body
+    # ).execute()
 
 if __name__ == "__main__":
     uploadYtvid(VIDEO_FILE_NAME='./intro_vid.mp4')

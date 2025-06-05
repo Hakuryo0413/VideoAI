@@ -3,7 +3,7 @@ import { Button, Input, Form, ConfigProvider } from "antd";
 import { VideoInterface } from "@src/types/VideoInterface";
 import { LeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
-import { getVideoInfo } from "@src/features/video/VideoDetail";
+import { getVideoDetail } from "@src/features/video/VideoDetail";
 
 const { TextArea } = Input;
 
@@ -15,11 +15,10 @@ const VideoDetailTab: React.FC<ScriptTabProps> = ({ video_id }) => {
   let navigate = useNavigate();
   const [videoInfo, setVideoInfo] = useState<VideoInterface | null>(null);
 
-  // Fetch news info when news_id changes
   useEffect(() => {
     const fetchVideoInfo = async () => {
       try {
-        const data = await getVideoInfo(video_id);
+        const data = await getVideoDetail(video_id);
         setVideoInfo(data);
         console.log("Fetched data:", data);
       } catch (error) {

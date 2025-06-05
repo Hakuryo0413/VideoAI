@@ -2,11 +2,10 @@
 import logging
 from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
-
 from app.helpers.paging import Page, PaginationParams, paginate
 from app.models.model_history import VideoHistory
 from app.schemas.sche_base import DataResponse
-from app.schemas.sche_history import HistoryItemResponse, HistoryUpdateRequest
+from app.schemas.sche_history import HistoryCreateRequest, HistoryItemResponse, HistoryUpdateRequest
 from fastapi_sqlalchemy import db
 
 from app.services.srv_history import HistoryService
@@ -64,5 +63,16 @@ def get_history_by_video_id(video_id: str, history_service: HistoryService = Dep
             reviewed_at = history.reviewed_at
         )
         return DataResponse().success_response(data=history_response)
+    except Exception as e:
+        return HTTPException(status_code=400, detail=logger.error(e))
+    
+@router.post("", response_model=DataResponse[HistoryItemResponse])
+def create_history(history_data: HistoryCreateRequest, history_service: HistoryService = Depends()) -> Any:
+    """
+    API Create History
+    """
+    try:
+        new_history = history_service.create_history(history_data)
+        return DataResponse().success_response(data=new_history)
     except Exception as e:
         return HTTPException(status_code=400, detail=logger.error(e))

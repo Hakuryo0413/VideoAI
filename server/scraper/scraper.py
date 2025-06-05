@@ -25,21 +25,16 @@ print(f"🗓️ Ngày : {current_date.strftime('%Y-%m-%d %H:%M:%S')}")
 driver.get("https://edition.cnn.com/")
 time.sleep(3)  # Chờ trang tải dữ liệu
 
-# articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
-
 try:
     # Lấy danh sách bài báo (giới hạn 1 bài đầu tiên)
-    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:1]
-    
+    articles = driver.find_elements(By.CSS_SELECTOR, ".card.container__item")[:2]
     # Kiểm tra nếu articles có dữ liệu
     if articles:
         print(f"✅ Đã lấy được {len(articles)} bài báo.")
     else:
         print("❌ Không tìm thấy bài báo nào.")
-        
 except Exception as e:
     print(f"❌ Lỗi khi lấy bài báo: {str(e)}")
-
 
 # Danh sách để lưu tiêu đề & URL bài báo
 print(articles)
@@ -64,22 +59,18 @@ news_data = []
 # Duyệt qua từng bài báo và thu thập dữ liệu
 for index, (title, url) in enumerate(zip(article_titles, article_urls), start=1):
     try:
-        # Truy cập trang bài báo trên Báo Mới
+        # Truy cập trang bài báo trên CNN
         driver.get(url)
         time.sleep(3)  # Đợi trang tải
-
         try:
             full_content = driver.find_element(By.CLASS_NAME, "article__content")
             paragraphs = full_content.find_elements(By.TAG_NAME, "p")
             content = "\n".join([p.text for p in paragraphs if p.text.strip()])
         except:
             pass
-
         # Lưu dữ liệu vào danh sách
         news_data.append((title, url, content))
-
         print(f"✅ Hoàn tất bài {index}")
-
     except Exception as e:
         print(f"❌ Lỗi khi lấy bài {index}: {str(e)}")
 

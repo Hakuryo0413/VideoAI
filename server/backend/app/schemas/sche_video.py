@@ -131,7 +131,7 @@ class VideoCreateRequest(BaseModel):
     script: Script
     # config: Config
     presenter_config: PresenterConfig
-    webhook: Optional[str] = 'https://3e08-42-113-220-88.ngrok-free.app/video/webhook'
+    webhook: Optional[str] = 'https://1864-1-55-194-237.ngrok-free.app/video/webhook'
     name: Optional[str] = None
     # id: Optional[str]
     # created_at: Optional[str] = None
@@ -167,3 +167,5 @@ class VideoGetResponse(BaseModel):
     user: Optional[User] = None
     owner_id: Optional[str] = None
 
+class VideoStatusRequest(BaseModel):
+    status: str

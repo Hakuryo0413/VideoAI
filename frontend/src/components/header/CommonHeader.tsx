@@ -37,7 +37,7 @@ function CommonHeader() {
               >
                 <Image
                   width={70}
-                  src="https://github.com/Hakuryo0413/VideoAI/blob/feV2/VideoAILogo.png?raw=true"
+                  src="https://res-console.cloudinary.com/dkglfu0md/media_explorer_thumbnails/3621eb4f91774eef64cb60204135a7c2/detailed"
                   preview={false}
                   className="mt-4"
                 />
@@ -60,9 +60,7 @@ function CommonHeader() {
                     {token ? "Log out" : "Log in"}
                   </a>
                 </Disclosure.Button>
-                <Disclosure.Button
-                  className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                >
+                <Disclosure.Button className="flex items-center float-right rounded-lg p-2 hover:text-currentText text-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <a href="/profile" className="font-bold">
                     {token && "Profile"}
                   </a>

@@ -8,7 +8,7 @@ import requests
 from app.helpers.paging import Page, PaginationParams, paginate
 from app.models.model_video import Video
 from app.schemas.sche_base import DataResponse
-from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse
+from app.schemas.sche_video import VideoCreateRequest, VideoCreateResponse, VideoGetResponse, VideoItemResponse, VideoStatusRequest
 from fastapi_sqlalchemy import db
 
 from app.services.srv_video import VideoService
@@ -43,10 +43,10 @@ def post_video(video_data: VideoCreateRequest, news_id: str, video_service: Vide
     API Create Video
     """
     try:
-        print("VIDEO DATAAAA: ", video_data.json())
-        print("HEADERS: ", video_data)
+        print("Tram DATAAAA: ", video_data.json())
+        print("HEADERSs: ", video_data)
         response = requests.post(f"{api_url}/clips", headers=headers, data = video_data.json())
-        print("RESPONSE: ", response.json())
+        print("RESPONSEs: ", response.json())
         video_response = VideoCreateResponse.parse_obj(response.json())
         print("VIDEO RESPONSE: ", video_response)
         new_video = video_service.post_video(video_response, news_id)
@@ -137,7 +137,17 @@ def update_video(video_id: str, video_data: VideoGetResponse, video_service: Vid
         return DataResponse().success_response(data=updated_video)
     except Exception as e:
         return HTTPException(status_code=400, detail=str(e))
-    
+
+@router.put("/status/{video_id}", response_model=DataResponse[VideoGetResponse])
+def update_video_status(video_id: str, video_data: VideoStatusRequest, video_service: VideoService = Depends()) -> Any:
+    """
+    API Update Video Status
+    """
+    try:
+        updated_video = video_service.update_video_status(video_id, video_data)
+        return DataResponse().success_response(data=updated_video)
+    except Exception as e:
+        return HTTPException(status_code=400, detail=str(e))
 
 @router.get("/news/{news_id}", response_model=DataResponse[VideoItemResponse])
 def get_video_by_news_id(news_id: str, video_service: VideoService = Depends()) -> Any:

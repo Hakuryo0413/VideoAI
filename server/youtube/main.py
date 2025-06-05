@@ -23,9 +23,8 @@ num_to_month = {
     11: "Nov",
     12: "Dec"
 } 
-
-title = "VIDEOAI TEST" # SET YOUR TITLE HERE
 now = datetime.datetime.now()
+title = "VideoAI News - " + num_to_month[now.month].upper() + "/" + str(now.day) + "/" + str(now.year)  # SET YOUR TITLE HERE
 # videoDirectory = "./video" + "_" + str(now.year) +  num_to_month[now.month].upper() +  "_" + str(now.day) + "/"
 # backend_path = "/opt/airflow/video/"
 # outputFile = os.path.join(backend_path, "video.mp4")
@@ -42,7 +41,9 @@ DAILY_SCHEDULED_TIME = "20:00"
 TOKEN_NAME = "token.json" # Don't change
 
 # Setup Google 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = ["https://www.googleapis.com/auth/youtube.upload",
+        "https://www.googleapis.com/auth/youtube.force-ssl"]
+
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 client_secrets_file = "googleAPI.json"
 
